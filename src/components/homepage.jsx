@@ -120,7 +120,7 @@ function Homepage() {
     <div className="homepage-container" style={{ fontFamily: "Arial, sans-serif", color: "#fff" }}>
       {/* Inline global styles */}
       <style>{`
-        body { margin: 0; background: #000; }
+        body { margin: 0; background: #090231ff; }
         .background-canvas { position: fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
         .hero-section { text-align:center; padding:80px 20px; }
         .hero-logo { font-size:3rem; font-weight:bold; color:#e23c50; }

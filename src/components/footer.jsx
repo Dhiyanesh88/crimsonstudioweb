@@ -1,10 +1,8 @@
 import React from 'react';
 
 const team = [
-  { name: 'Dhiyanesh R', role: 'Founder & Director', photo: '/images/team1.jpg', bio: 'Loves storytelling, anime production, and mentoring new creators.' },
-  { name: 'Akash', role: 'Co-Director', photo: '/images/team2.jpg', bio: 'Expert in 2D animation and character design with a passion for fantasy worlds.' },
-  { name: 'Jayanithi', role: 'CEO', photo: '/images/team3.jpg', bio: 'Visual storyteller focused on dynamic action and compelling narratives.' },
-  // Add more team members as needed
+  { name: 'Dhiyanesh R', role: 'CreLead & Founder',  bio: 'Creative direction, storytelling, art, design' },
+  { name: 'Akash', role: 'OpsLead & Founder', bio: 'Operations, production, finance, management' },
 ];
 
 const values = ['Creativity', 'Respect for Source Material', 'Diversity in Genres', 'Collaboration', 'Innovation'];
@@ -74,9 +72,9 @@ export default function About() {
               }}
             >
               <img
-                src={member.photo}
-                alt={member.name}
-                style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+                // src={member.photo}
+                // alt={member.name}
+                // style={{ width: '100%', height: '300px', objectFit: 'cover' }}
               />
               <div style={{ padding: '15px', textAlign: 'center' }}>
                 <h3 style={{ margin: '0 0 5px', color: '#ff2e63' }}>{member.name}</h3>

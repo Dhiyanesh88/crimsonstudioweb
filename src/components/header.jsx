@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 export default function Header() {
   const navLinks = [
@@ -39,8 +38,8 @@ export default function Header() {
         }}>
           {navLinks.map(link => (
             <li key={link.name}>
-              <Link
-                to={link.path}
+              <a
+                href={link.path}
                 style={{
                   textDecoration: 'none',
                   color: '#fff',
@@ -51,7 +50,7 @@ export default function Header() {
                 onMouseLeave={e => e.currentTarget.style.color = '#fff'}
               >
                 {link.name}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>
