@@ -11,7 +11,7 @@ const values = ['Creativity', 'Respect for Source Material', 'Diversity in Genre
 
 export default function About() {
   return (
-    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '100vh', padding: '50px 20px' }}>
+    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '50vh', padding: '50px 20px' }}>
       
       {/* Studio Overview */}
       <section style={{ maxWidth: '900px', margin: '0 auto 60px', textAlign: 'center' }}>

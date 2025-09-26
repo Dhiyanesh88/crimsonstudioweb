@@ -24,7 +24,7 @@ const merchItems = [
 
 export default function Merchandise() {
   return (
-    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '100vh', padding: '50px 20px' }}>
+    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '70vh', padding: '50px 20px' }}>
       <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#ff2e63' }}>Merchandise Store</h1>
 
       <div
