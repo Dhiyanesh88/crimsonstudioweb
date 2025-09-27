@@ -222,14 +222,14 @@ export default function AboutWithCosmic() {
                 onMouseEnter={() => setHovered(idx)}
                 onMouseLeave={() => setHovered(null)}
                 style={{
-                  background: "rgba(20, 20, 30, 0.5)",
+                  background: "rgba(255,255,255,0.05)",
                   borderRadius: "16px",
                   padding: "30px 20px",
                   textAlign: "center",
                   transition: "transform 0.4s ease, box-shadow 0.4s ease",
                   boxShadow:
                     hovered === idx
-                      ? "0 0 50px 15px rgba(226,60,80,0.5), 0 0 70px 25px rgba(79,172,255,0.3)"
+                      ? "0 0 50px 15px rgba(239, 18, 44, 0.5), 0 0 70px 25px rgba(79,172,255,0.3)"
                       : "0 0 15px rgba(0,0,0,0.5)",
                   transform: hovered === idx ? "translateY(-10px)" : "none",
                   backdropFilter: "blur(6px)",
@@ -244,11 +244,11 @@ export default function AboutWithCosmic() {
                 <p
                   style={{
                     marginTop: "12px",
-                    color: "#e23c50",
+                    color: "#dcd9d9ff",
                     opacity: hovered === idx ? 1 : 0,
                     height: hovered === idx ? "auto" : 0,
                     transition: "opacity 0.4s ease",
-                    fontSize: windowWidth > 768 ? "0.95rem" : "0.85rem",
+                    fontSize: windowWidth > 768 ? "1rem" : "1rem",
                   }}
                 >
                   {member.bio}

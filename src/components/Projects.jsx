@@ -53,8 +53,8 @@ export default function Projects() {
         background: 'transparent',
         color: '#fff',
         fontFamily: 'Arial, sans-serif',
-        minHeight: '50vh',
-        padding: 'clamp(40px, 5vw, 60px) 20px',
+        minHeight: '40vh',
+        padding: 'clamp(40px, 5vw, 50px) 20px',
         position: 'relative',
         zIndex: 1,
       }}
