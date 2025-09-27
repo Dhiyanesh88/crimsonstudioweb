@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const projects = [
   {
@@ -34,6 +34,13 @@ const filters = ['All', 'TV Series', 'OVA', 'Web Anime', 'Short Film'];
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState('All');
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const filteredProjects =
     activeFilter === 'All'
@@ -41,8 +48,38 @@ export default function Projects() {
       : projects.filter((proj) => proj.format === activeFilter);
 
   return (
-    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '50vh', padding: 'clamp(40px, 5vw, 60px) 20px' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#ff2e63', fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}>Our Projects</h1>
+    <div
+      style={{
+        background: 'transparent',
+        color: '#fff',
+        fontFamily: 'Arial, sans-serif',
+        minHeight: '50vh',
+        padding: 'clamp(40px, 5vw, 60px) 20px',
+        position: 'relative',
+        zIndex: 1,
+      }}
+    >
+      <style>
+        {`
+          @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+          }
+        `}
+      </style>
+
+      <h1
+        style={{
+          textAlign: 'center',
+          marginBottom: '40px',
+          color: '#ff2e63',
+          fontSize: 'clamp(2rem, 5vw, 2.5rem)',
+          textShadow: '0 0 10px rgba(255,46,99,0.7)',
+        }}
+      >
+        Our Projects
+      </h1>
 
       {/* Filters */}
       <div style={{ textAlign: 'center', marginBottom: '30px' }}>
@@ -51,15 +88,16 @@ export default function Projects() {
             key={filter}
             onClick={() => setActiveFilter(filter)}
             style={{
-              margin: '0 10px',
+              margin: '0 10px 10px 10px',
               padding: 'clamp(8px, 1.5vw, 10px) clamp(15px, 3vw, 20px)',
               fontSize: 'clamp(0.9rem, 2vw, 1rem)',
               borderRadius: '5px',
               border: activeFilter === filter ? '2px solid #ff2e63' : '1px solid #555',
-              background: activeFilter === filter ? '#ff2e63' : '#222',
+              background: activeFilter === filter ? 'rgba(255,46,99,0.7)' : 'rgba(34,34,34,0.5)',
               color: '#fff',
               cursor: 'pointer',
               transition: '0.3s',
+              backdropFilter: 'blur(4px)',
             }}
           >
             {filter}
@@ -71,7 +109,7 @@ export default function Projects() {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gridTemplateColumns: windowWidth < 768 ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
           gap: 'clamp(20px, 3vw, 30px)',
         }}
       >
@@ -80,24 +118,33 @@ export default function Projects() {
             key={proj.title}
             style={{
               position: 'relative',
-              borderRadius: '10px',
+              borderRadius: '15px',
               overflow: 'hidden',
               cursor: 'pointer',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+              background: 'rgba(20,20,30,0.5)',
+              backdropFilter: 'blur(6px)',
+              animation: 'float 6s ease-in-out infinite', // slow floating
+              transition: 'transform 0.5s ease, box-shadow 0.5s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.05)';
-              e.currentTarget.style.boxShadow = '0 10px 25px rgba(255,46,99,0.5)';
+              e.currentTarget.style.transform = 'translateY(-10px)';
+              e.currentTarget.style.boxShadow =
+                '0 15px 35px rgba(255,46,99,0.4), 0 0 50px rgba(79,172,255,0.2)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.transform = 'translateY(0px)';
               e.currentTarget.style.boxShadow = 'none';
             }}
           >
             <img
               src={proj.thumbnail}
               alt={proj.title}
-              style={{ width: '100%', height: 'clamp(250px, 30vw, 300px)', objectFit: 'cover' }}
+              style={{
+                width: '100%',
+                height: 'clamp(250px, 30vw, 300px)',
+                objectFit: 'cover',
+                filter: 'brightness(0.85)',
+              }}
             />
             <div
               style={{
@@ -106,13 +153,24 @@ export default function Projects() {
                 left: '0',
                 width: '100%',
                 padding: 'clamp(10px, 2vw, 15px)',
-                background: 'rgba(0,0,0,0.7)',
+                background: 'rgba(0,0,0,0.5)',
                 color: '#fff',
                 transition: '0.3s',
+                backdropFilter: 'blur(4px)',
               }}
             >
-              <h3 style={{ margin: '0 0 5px', fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>{proj.title} ({proj.year})</h3>
-              <p style={{ margin: '0 0 5px', fontSize: 'clamp(0.85rem, 2vw, 1rem)', color: '#ff2e63' }}>{proj.genre}</p>
+              <h3
+                style={{
+                  margin: '0 0 5px',
+                  fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+                  textShadow: '0 0 8px rgba(255,46,99,0.7)',
+                }}
+              >
+                {proj.title} ({proj.year})
+              </h3>
+              <p style={{ margin: '0 0 5px', fontSize: 'clamp(0.85rem, 2vw, 1rem)', color: '#ff2e63' }}>
+                {proj.genre}
+              </p>
               <p style={{ margin: '0', fontSize: 'clamp(0.8rem, 1.8vw, 0.95rem)' }}>{proj.tagline}</p>
               {proj.trailer && (
                 <a

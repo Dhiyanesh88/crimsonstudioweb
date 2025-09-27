@@ -26,7 +26,7 @@ function App() {
         <Services />
         <News />
         <ClipsPage />
-        <Contact />
+        {/* <Contact /> */}
       </main>
       <Footer />
     </div>
