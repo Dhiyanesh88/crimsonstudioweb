@@ -65,85 +65,166 @@ export default function ContactAndTeam() {
       </h1>
 
       <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '30px', justifyContent: 'center', flexWrap: 'wrap' }}>
-        
+
         {/* Contact Form */}
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e);
+
+            const button = e.currentTarget.querySelector("button");
+            button.innerText = "Sent to the Multiverse!";
+
+            // Create rocket
+            const rocket = document.createElement("div");
+            rocket.style.position = "fixed";
+            rocket.style.bottom = "30px";
+            rocket.style.left = "50%";
+            rocket.style.transform = "translateX(-50%)";
+            rocket.style.width = "12px";
+            rocket.style.height = "24px";
+            rocket.style.background = "linear-gradient(45deg, #ff6600, #ffcc00)";
+            rocket.style.borderRadius = "6px";
+            rocket.style.boxShadow = "0 0 8px #ff6600, 0 0 16px #ffcc00";
+            rocket.style.zIndex = 10000;
+            rocket.style.transition = "transform 2s ease-in, opacity 2s ease-in";
+            document.body.appendChild(rocket);
+
+            setTimeout(() => {
+              rocket.style.transform = "translateX(-50%) translateY(-120vh) rotate(10deg)";
+              rocket.style.opacity = 0;
+            }, 50);
+
+            setTimeout(() => {
+              document.body.removeChild(rocket);
+              button.innerText = "Send Message";
+            }, 2100);
+          }}
           style={{
-            flex: '1 1 400px',
-            background: 'rgba(20,20,30,0.5)',
-            backdropFilter: 'blur(6px)',
-            borderRadius: '15px',
-            padding: '25px',
-            animation: 'float 6s ease-in-out infinite',
+            flex: "1 1 400px",
+            background: "rgba(20,20,30,0.5)",
+            backdropFilter: "blur(6px)",
+            borderRadius: "15px",
+            padding: "25px",
+            animation: "float 6s ease-in-out infinite",
           }}
         >
-          <h2 style={{ color: '#ff2e63', marginBottom: '20px', textAlign: 'center' }}>Get in Touch</h2>
-          <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange}
-            style={{ width: '100%', padding: '10px', marginBottom: '15px', borderRadius: '5px', border: '1px solid #555', background: '#222', color: '#fff' }} />
-          <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange}
-            style={{ width: '100%', padding: '10px', marginBottom: '15px', borderRadius: '5px', border: '1px solid #555', background: '#222', color: '#fff' }} />
-          <textarea name="message" placeholder="Your Message" value={formData.message} onChange={handleChange} rows="4"
-            style={{ width: '100%', padding: '10px', borderRadius: '5px', border: '1px solid #555', background: '#222', color: '#fff', resize: 'none', marginBottom: '15px' }} />
+          <h2 style={{ color: "#ff2e63", marginBottom: "20px", textAlign: "center" }}>
+            Get in Touch
+          </h2>
+
+          {/* Lively input fields */}
+          {["name", "email"].map((field) => (
+            <input
+              key={field}
+              type={field === "email" ? "email" : "text"}
+              name={field}
+              placeholder={`Your ${field.charAt(0).toUpperCase() + field.slice(1)}`}
+              value={formData[field]}
+              onChange={handleChange}
+              style={{
+                width: "90%",
+                padding: "12px",
+                margin: "10px auto",
+                display: "block",
+                borderRadius: "12px",
+                border: "2px solid #d6070799",
+                background: "#28020285",
+                color: "#bcd0ffff",
+                fontWeight: "500",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              }}
+              onFocus={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
+              onBlur={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            />
+          ))}
+
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            rows="4"
+            style={{
+              width: "90%",
+              padding: "12px",
+              margin: "10px auto",
+              display: "block",
+              borderRadius: "12px",
+              border: "2px solid #d6070799",
+                background: "#28020285",
+              color: "#fff",
+              resize: "none",
+              transition: "transform 0.2s ease, box-shadow 0.2s ease",
+            }}
+            onFocus={(e) => (e.currentTarget.style.transform = "scale(1.03)")}
+            onBlur={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+
           <button
             type="submit"
-            onMouseEnter={() => setHoveredButton(true)}
-            onMouseLeave={() => setHoveredButton(false)}
             style={{
-              width: '100%',
-              padding: '10px',
-              background: hoveredButton && !isMobile ? '#e23c50' : '#ff2e63',
-              border: 'none',
-              borderRadius: '5px',
-              color: '#fff',
-              cursor: 'pointer',
-              fontSize: '1rem',
-              transition: 'background 0.3s ease, transform 0.2s ease',
-              transform: hoveredButton && !isMobile ? 'scale(1.05)' : 'scale(1)',
+              width: "90%",
+              padding: "12px",
+              margin: "15px auto",
+              display: "block",
+              background: "#ff2e63",
+              border: "none",
+              borderRadius: "12px",
+              color: "#fff",
+              cursor: "pointer",
+              fontSize: "1rem",
+              transition: "all 0.3s ease",
+              boxShadow: "0 0 8px #ff2e63, 0 0 16px #e23c50",
             }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.boxShadow = "0 0 16px #ff2e63, 0 0 24px #e23c50")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.boxShadow = "0 0 8px #ff2e63, 0 0 16px #e23c50")
+            }
           >
             Send Message
           </button>
         </form>
 
-       {/* Contact Info & Socials */}
-<div
-  style={{
-    flex: '1 1 300px',
-    background: 'rgba(20,20,30,0.5)',
-    backdropFilter: 'blur(6px)',
-    borderRadius: '15px',
-    padding: '25px',
-    animation: 'float 7s ease-in-out infinite',
-  }}
->
-  <h2 style={{ color: '#ff2e63', marginBottom: '20px', textAlign: 'center' }}>Company Info</h2>
-  <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Email: contact@crimsoncelest.com</p>
-  <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Phone: +91-123-456-7890</p>
+        {/* Contact Info & Socials */}
+        <div
+          style={{
+            flex: '1 1 300px',
+            background: 'rgba(20,20,30,0.5)',
+            backdropFilter: 'blur(6px)',
+            borderRadius: '15px',
+            padding: '25px',
+            animation: 'float 7s ease-in-out infinite',
+          }}
+        >
+          <h2 style={{ color: '#ff2e63', marginBottom: '20px', textAlign: 'center' }}>Company Info</h2>
+          <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Email: contact@crimsoncelest.com</p>
+          <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Phone: +91-123-456-7890</p>
 
-  <h3 style={{ color: '#ff2e63', margin: '20px 0 10px', textAlign: 'center' }}>Follow Us</h3>
-  <div style={{ display: 'flex', justifyContent: 'center', gap: '15px' }}>
-    {socialIcons.map((social, idx) => (
-      <a
-        key={idx}
-        href={social.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        onMouseEnter={() => setSocialHover(idx)}
-        onMouseLeave={() => setSocialHover(null)}
-        style={{
-          color: socialHover === idx && !isMobile ? '#fff' : social.color,
-          fontSize: '1.5rem',
-          transition: 'color 0.3s ease, transform 0.2s ease',
-          transform: socialHover === idx && !isMobile ? 'scale(1.2)' : 'scale(1)',
-        }}
-      >
-        {social.icon}
-      </a>
-    ))}
-  </div>
-</div>
-
+          <h3 style={{ color: '#ff2e63', margin: '20px 0 10px', textAlign: 'center' }}>Follow Us</h3>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '15px' }}>
+            {socialIcons.map((social, idx) => (
+              <a
+                key={idx}
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseEnter={() => setSocialHover(idx)}
+                onMouseLeave={() => setSocialHover(null)}
+                style={{
+                  color: socialHover === idx && !isMobile ? '#fff' : social.color,
+                  fontSize: '1.5rem',
+                  transition: 'color 0.3s ease, transform 0.2s ease',
+                  transform: socialHover === idx && !isMobile ? 'scale(1.2)' : 'scale(1)',
+                }}
+              >
+                {social.icon}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

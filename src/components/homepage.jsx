@@ -71,7 +71,7 @@ function Homepage() {
     );
 
   return (
-    <div className="homepage-container" style={{ fontFamily: "Arial, sans-serif", color: "#fff" }}>
+    <div className="homepage-container" style={{  color: "#fff" }}>
       {/* Inline global styles */}
       <style>{`
         body { margin: 0; background: #0d0128; }
