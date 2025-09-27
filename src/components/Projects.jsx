@@ -28,7 +28,6 @@ const projects = [
     trailer: '#',
     format: 'Web Anime',
   },
-  // Add more projects as needed
 ];
 
 const filters = ['All', 'TV Series', 'OVA', 'Web Anime', 'Short Film'];
@@ -42,8 +41,8 @@ export default function Projects() {
       : projects.filter((proj) => proj.format === activeFilter);
 
   return (
-    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '50vh', padding: '50px 20px' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#ff2e63' }}>Our Projects</h1>
+    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '50vh', padding: 'clamp(40px, 5vw, 60px) 20px' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#ff2e63', fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}>Our Projects</h1>
 
       {/* Filters */}
       <div style={{ textAlign: 'center', marginBottom: '30px' }}>
@@ -53,8 +52,8 @@ export default function Projects() {
             onClick={() => setActiveFilter(filter)}
             style={{
               margin: '0 10px',
-              padding: '10px 20px',
-              fontSize: '1rem',
+              padding: 'clamp(8px, 1.5vw, 10px) clamp(15px, 3vw, 20px)',
+              fontSize: 'clamp(0.9rem, 2vw, 1rem)',
               borderRadius: '5px',
               border: activeFilter === filter ? '2px solid #ff2e63' : '1px solid #555',
               background: activeFilter === filter ? '#ff2e63' : '#222',
@@ -73,7 +72,7 @@ export default function Projects() {
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '30px',
+          gap: 'clamp(20px, 3vw, 30px)',
         }}
       >
         {filteredProjects.map((proj) => (
@@ -84,7 +83,7 @@ export default function Projects() {
               borderRadius: '10px',
               overflow: 'hidden',
               cursor: 'pointer',
-              transition: 'transform 0.3s, box-shadow 0.3s',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.05)';
@@ -98,7 +97,7 @@ export default function Projects() {
             <img
               src={proj.thumbnail}
               alt={proj.title}
-              style={{ width: '100%', height: '300px', objectFit: 'cover' }}
+              style={{ width: '100%', height: 'clamp(250px, 30vw, 300px)', objectFit: 'cover' }}
             />
             <div
               style={{
@@ -106,28 +105,31 @@ export default function Projects() {
                 bottom: '0',
                 left: '0',
                 width: '100%',
-                padding: '15px',
+                padding: 'clamp(10px, 2vw, 15px)',
                 background: 'rgba(0,0,0,0.7)',
                 color: '#fff',
                 transition: '0.3s',
               }}
             >
-              <h3 style={{ margin: '0 0 5px' }}>{proj.title} ({proj.year})</h3>
-              <p style={{ margin: '0 0 5px', fontSize: '0.9rem', color: '#ff2e63' }}>{proj.genre}</p>
-              <p style={{ margin: '0', fontSize: '0.8rem' }}>{proj.tagline}</p>
+              <h3 style={{ margin: '0 0 5px', fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>{proj.title} ({proj.year})</h3>
+              <p style={{ margin: '0 0 5px', fontSize: 'clamp(0.85rem, 2vw, 1rem)', color: '#ff2e63' }}>{proj.genre}</p>
+              <p style={{ margin: '0', fontSize: 'clamp(0.8rem, 1.8vw, 0.95rem)' }}>{proj.tagline}</p>
               {proj.trailer && (
                 <a
                   href={proj.trailer}
                   style={{
                     display: 'inline-block',
                     marginTop: '10px',
-                    padding: '5px 15px',
+                    padding: 'clamp(5px, 1.5vw, 8px) clamp(10px, 3vw, 15px)',
                     background: '#ff2e63',
                     color: '#fff',
                     borderRadius: '5px',
                     textDecoration: 'none',
-                    fontSize: '0.9rem',
+                    fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
+                    transition: 'background 0.3s ease',
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = '#e23c50')}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = '#ff2e63')}
                 >
                   Play Trailer
                 </a>

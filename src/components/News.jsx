@@ -26,14 +26,14 @@ const newsList = [
 
 export default function News() {
   return (
-    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '50vh', padding: '50px 20px' }}>
-      <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#ff2e63' }}>Latest News</h1>
+    <div style={{ background: '#0d0d0d', color: '#fff', fontFamily: 'Arial, sans-serif', minHeight: '50vh', padding: 'clamp(40px, 5vw, 60px) 20px' }}>
+      <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#ff2e63', fontSize: 'clamp(2rem, 5vw, 2.5rem)' }}>Latest News</h1>
 
       <div
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '30px',
+          gap: 'clamp(20px, 3vw, 30px)',
         }}
       >
         {newsList.map((news) => (
@@ -44,7 +44,7 @@ export default function News() {
               borderRadius: '10px',
               overflow: 'hidden',
               cursor: 'pointer',
-              transition: 'transform 0.3s, box-shadow 0.3s',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'scale(1.03)';
@@ -58,22 +58,25 @@ export default function News() {
             <img
               src={news.img}
               alt={news.title}
-              style={{ width: '100%', height: '180px', objectFit: 'cover' }}
+              style={{ width: '100%', height: 'clamp(150px, 20vw, 180px)', objectFit: 'cover' }}
             />
-            <div style={{ padding: '20px' }}>
-              <h3 style={{ margin: '0 0 10px', color: '#ff2e63' }}>{news.title}</h3>
-              <p style={{ margin: '0 0 10px', fontSize: '0.8rem', color: '#aaa' }}>{news.date}</p>
-              <p style={{ margin: '0 0 15px', fontSize: '0.9rem' }}>{news.snippet}</p>
+            <div style={{ padding: 'clamp(15px, 2vw, 20px)' }}>
+              <h3 style={{ margin: '0 0 10px', color: '#ff2e63', fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>{news.title}</h3>
+              <p style={{ margin: '0 0 10px', fontSize: 'clamp(0.75rem, 2vw, 0.85rem)', color: '#aaa' }}>{news.date}</p>
+              <p style={{ margin: '0 0 15px', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}>{news.snippet}</p>
               <a
                 href={news.link}
                 style={{
                   textDecoration: 'none',
                   color: '#fff',
                   background: '#ff2e63',
-                  padding: '5px 15px',
+                  padding: 'clamp(5px, 1.5vw, 8px) clamp(10px, 3vw, 15px)',
                   borderRadius: '5px',
-                  fontSize: '0.9rem',
+                  fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
+                  transition: 'background 0.3s ease',
                 }}
+                onMouseEnter={(e) => e.currentTarget.style.background = '#e23c50'}
+                onMouseLeave={(e) => e.currentTarget.style.background = '#ff2e63'}
               >
                 Read More
               </a>

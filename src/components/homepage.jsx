@@ -116,17 +116,9 @@ function Homepage() {
         <div className="hero-tagline">
           Bringing Stories to Life, One Frame at a Time
         </div>
-        <div className="hero-cta">
-          <a href="#portfolio" className="cta-btn">
-            View Projects
-          </a>
-          <a href="#contact" className="cta-btn secondary">
-            Contact Us
-          </a>
-        </div>
       </div>
 
-      <div className="projects-slider">
+      {/* <div className="projects-slider">
         <h2>Featured Projects</h2>
         <div className="carousel">
           <button className="carousel-btn" onClick={prevSlide} aria-label="Previous slide">‹</button>
@@ -187,9 +179,9 @@ function Homepage() {
             </div>
           </div>
         )}
-      </div>
+      </div> */}
 
-      <div className="studio-highlights">
+      {/* <div className="studio-highlights">
         <h2>Studio Highlights</h2>
         <div className="stats">
           {stats.map((stat) => (
@@ -199,7 +191,7 @@ function Homepage() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

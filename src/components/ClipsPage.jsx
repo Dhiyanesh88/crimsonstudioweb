@@ -16,8 +16,11 @@ export default function ClipsPage() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const videoHeight = windowWidth > 768 ? '200px' : '150px';
-  const headingFontSize = windowWidth > 768 ? '2rem' : '1.5rem';
+  const isMobile = windowWidth <= 768;
+
+  const videoHeight = isMobile ? 'clamp(120px, 20vw, 150px)' : 'clamp(180px, 25vw, 200px)';
+  const headingFontSize = isMobile ? 'clamp(1.5rem, 5vw, 2rem)' : 'clamp(2rem, 4vw, 2.5rem)';
+  const padding = isMobile ? '20px 15px' : '60px 40px';
 
   return (
     <div
@@ -26,7 +29,7 @@ export default function ClipsPage() {
         color: '#fff',
         fontFamily: 'Arial, sans-serif',
         minHeight: '50vh',
-        padding: windowWidth > 768 ? '60px 40px' : '40px 20px',
+        padding,
       }}
     >
       <h1
@@ -48,7 +51,7 @@ export default function ClipsPage() {
         }}
       >
         {clips.map((clip) => (
-          <ClipCard key={clip.title} clip={clip} videoHeight={videoHeight} />
+          <ClipCard key={clip.title} clip={clip} videoHeight={videoHeight} isMobile={isMobile} />
         ))}
       </div>
     </div>
@@ -56,7 +59,7 @@ export default function ClipsPage() {
 }
 
 // Separate component for individual clip cards with hover effect
-function ClipCard({ clip, videoHeight }) {
+function ClipCard({ clip, videoHeight, isMobile }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -68,8 +71,10 @@ function ClipCard({ clip, videoHeight }) {
         borderRadius: '10px',
         overflow: 'hidden',
         cursor: 'pointer',
-        transform: hovered ? 'scale(1.03)' : 'scale(1)',
-        boxShadow: hovered ? '0 10px 25px rgba(255,46,99,0.5)' : '0 0 10px rgba(0,0,0,0.3)',
+        transform: hovered && !isMobile ? 'scale(1.03)' : 'scale(1)',
+        boxShadow: hovered && !isMobile
+          ? '0 10px 25px rgba(255,46,99,0.5)'
+          : '0 0 10px rgba(0,0,0,0.3)',
         transition: 'transform 0.3s ease, box-shadow 0.3s ease',
       }}
     >
@@ -89,7 +94,7 @@ function ClipCard({ clip, videoHeight }) {
           style={{
             margin: 0,
             color: '#ff2e63',
-            fontSize: videoHeight === '200px' ? '1.2rem' : '1rem',
+            fontSize: isMobile ? 'clamp(1rem, 3vw, 1.2rem)' : 'clamp(1.2rem, 2vw, 1.5rem)',
           }}
         >
           {clip.title}

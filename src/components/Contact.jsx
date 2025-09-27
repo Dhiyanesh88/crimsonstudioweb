@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaTwitter, FaInstagram, FaYoutube, FaDiscord } from 'react-icons/fa';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '', projectType: '' });
@@ -11,6 +12,8 @@ export default function Contact() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const isMobile = windowWidth <= 768;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,32 +29,33 @@ export default function Contact() {
 
   const inputStyle = {
     width: '100%',
-    padding: '10px',
+    padding: 'clamp(8px, 2vw, 12px)',
     marginBottom: '15px',
     borderRadius: '5px',
     border: '1px solid #555',
     background: '#222',
     color: '#fff',
+    fontSize: 'clamp(0.9rem, 2vw, 1rem)',
   };
 
   const buttonStyle = {
-    padding: '10px 25px',
-    background: buttonHover ? '#e23c50' : '#ff2e63',
+    padding: 'clamp(10px, 2vw, 12px) clamp(20px, 5vw, 25px)',
+    background: buttonHover && !isMobile ? '#e23c50' : '#ff2e63',
     border: 'none',
     borderRadius: '5px',
     color: '#fff',
     cursor: 'pointer',
-    fontSize: '1rem',
+    fontSize: 'clamp(0.95rem, 2vw, 1rem)',
     transition: 'background 0.3s ease, transform 0.2s ease',
-    transform: buttonHover ? 'scale(1.05)' : 'scale(1)',
+    transform: buttonHover && !isMobile ? 'scale(1.05)' : 'scale(1)',
   };
 
-  const socialColors = {
-    Twitter: '#1DA1F2',
-    Instagram: '#E1306C',
-    YouTube: '#FF0000',
-    Discord: '#7289DA',
-  };
+  const socialIcons = [
+    { icon: <FaTwitter />, color: '#1DA1F2', link: '#' },
+    { icon: <FaInstagram />, color: '#E1306C', link: '#' },
+    { icon: <FaYoutube />, color: '#FF0000', link: '#' },
+    { icon: <FaDiscord />, color: '#7289DA', link: '#' },
+  ];
 
   return (
     <div
@@ -60,7 +64,7 @@ export default function Contact() {
         color: '#fff',
         fontFamily: 'Arial, sans-serif',
         minHeight: '50vh',
-        padding: windowWidth > 768 ? '60px 40px' : '40px 20px',
+        padding: isMobile ? '40px 20px' : 'clamp(40px, 5vw, 60px) clamp(20px, 4vw, 40px)',
       }}
     >
       <h1
@@ -68,7 +72,7 @@ export default function Contact() {
           textAlign: 'center',
           marginBottom: '40px',
           color: '#ff2e63',
-          fontSize: windowWidth > 768 ? '2rem' : '1.5rem',
+          fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2rem)' : 'clamp(2rem, 4vw, 2.5rem)',
         }}
       >
         Contact Us
@@ -77,9 +81,9 @@ export default function Contact() {
       <div
         style={{
           display: 'flex',
-          flexDirection: windowWidth > 768 ? 'row' : 'column',
+          flexDirection: isMobile ? 'column' : 'row',
           flexWrap: 'wrap',
-          gap: '30px',
+          gap: 'clamp(20px, 3vw, 30px)',
           justifyContent: 'center',
         }}
       >
@@ -89,11 +93,13 @@ export default function Contact() {
           style={{
             flex: '1 1 400px',
             background: '#111',
-            padding: '30px',
+            padding: 'clamp(20px, 3vw, 30px)',
             borderRadius: '10px',
           }}
         >
-          <h2 style={{ marginBottom: '20px', color: '#ff2e63' }}>Get in Touch</h2>
+          <h2 style={{ marginBottom: '20px', color: '#ff2e63', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>
+            Get in Touch
+          </h2>
 
           <input type="text" name="name" placeholder="Your Name" value={formData.name} onChange={handleChange} required style={inputStyle} />
           <input type="email" name="email" placeholder="Your Email" value={formData.email} onChange={handleChange} required style={inputStyle} />
@@ -115,30 +121,32 @@ export default function Contact() {
           style={{
             flex: '1 1 300px',
             background: '#111',
-            padding: '30px',
+            padding: 'clamp(20px, 3vw, 30px)',
             borderRadius: '10px',
           }}
         >
-          <h2 style={{ marginBottom: '20px', color: '#ff2e63' }}>Studio Info</h2>
-          <p style={{ marginBottom: '10px' }}>Email: contact@crimsoncelest.com</p>
-          <p style={{ marginBottom: '10px' }}>Address: 123 Anime Lane, Celest City, Earth</p>
+          <h2 style={{ marginBottom: '20px', color: '#ff2e63', fontSize: 'clamp(1.2rem, 4vw, 1.5rem)' }}>Studio Info</h2>
+          <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Email: contact@crimsoncelest.com</p>
+          <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Address: 123 Anime Lane, Celest City, Earth</p>
 
-          <h3 style={{ margin: '20px 0 10px', color: '#ff2e63' }}>Follow Us</h3>
-          <div style={{ display: 'flex', gap: '15px' }}>
-            {Object.keys(socialColors).map((platform, idx) => (
+          <h3 style={{ margin: '20px 0 10px', color: '#ff2e63', fontSize: 'clamp(1rem, 3vw, 1.2rem)' }}>Follow Us</h3>
+          <div style={{ display: 'flex', gap: 'clamp(10px, 2vw, 15px)' }}>
+            {socialIcons.map((social, idx) => (
               <a
-                key={platform}
-                href="#"
+                key={idx}
+                href={social.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  color: socialHover === idx ? '#fff' : socialColors[platform],
-                  fontSize: '1.5rem',
+                  color: socialHover === idx && !isMobile ? '#fff' : social.color,
+                  fontSize: 'clamp(1.3rem, 4vw, 1.5rem)',
                   transition: 'color 0.3s ease, transform 0.2s ease',
-                  transform: socialHover === idx ? 'scale(1.2)' : 'scale(1)',
+                  transform: socialHover === idx && !isMobile ? 'scale(1.2)' : 'scale(1)',
                 }}
                 onMouseEnter={() => setSocialHover(idx)}
                 onMouseLeave={() => setSocialHover(null)}
               >
-                {platform}
+                {social.icon}
               </a>
             ))}
           </div>

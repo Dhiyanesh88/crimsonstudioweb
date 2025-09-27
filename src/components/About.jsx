@@ -1,24 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 const teamMembers = [
-  {
-    name: "Aiko Tanaka",
-    role: "Director",
-    photo: "/images/aiko.jpg",
-    bio: "Loves hiking and classic manga.",
-  },
-  {
-    name: "Kenji Sato",
-    role: "Lead Animator",
-    photo: "/images/kenji.jpg",
-    bio: "Can animate with both hands at once!",
-  },
-  {
-    name: "Maya Lee",
-    role: "Scriptwriter",
-    photo: "/images/maya.jpg",
-    bio: "Writes poetry in her spare time.",
-  },
+   { name: 'Dhiyanesh R', role: 'CreLead & Founder',  bio: 'Creative direction, storytelling, art, design' },
+  { name: 'Akash', role: 'OpsLead & Founder', bio: 'Operations, production, finance, management' },
 ];
 
 const values = ["Creativity", "Respect for Source Material", "Diversity in Genres"];
@@ -104,7 +88,7 @@ export default function About() {
                 transform: hovered === idx ? "translateY(-8px)" : "none",
               }}
             >
-              <img
+              {/* <img
                 src={member.photo}
                 alt={member.name}
                 style={{
@@ -114,7 +98,7 @@ export default function About() {
                   objectFit: "cover",
                   marginBottom: "15px",
                 }}
-              />
+              /> */}
               <h3 style={{ margin: "10px 0", color: "#fff", fontSize: windowWidth > 768 ? "1.2rem" : "1rem" }}>
                 {member.name}
               </h3>
