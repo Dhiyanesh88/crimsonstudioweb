@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 export default function Header() {
   const navLinksLeft = [
@@ -19,6 +19,9 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+
   // Logo fade effect
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,10 +37,26 @@ export default function Header() {
   // Detect mobile screen
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    handleResize(); // check initially
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Swipe to close handlers
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStartX.current - touchEndX.current > 50) {
+      // swipe left
+      setMenuOpen(false);
+    }
+  };
 
   const linkStyle = {
     color: "#fff",
@@ -56,7 +75,6 @@ export default function Header() {
         padding: "0px 20px",
         height: "70px",
         background: "transparent",
-        position: "sticky",
         top: 0,
         zIndex: 1000,
       }}
@@ -153,36 +171,54 @@ export default function Header() {
         </div>
       )}
 
-      {/* Mobile Dropdown Menu */}
-      {isMobile && menuOpen && (
+      {/* Mobile Side Menu */}
+      <div
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{
+          position: "fixed",
+          top: 0,
+          right: menuOpen ? 0 : "-350px",
+          width: "250px",
+          height: "100vh",
+          background: "#111",
+          display: "flex",
+          flexDirection: "column",
+          padding: "70px 20px",
+          gap: "20px",
+          transition: "right 0.3s ease-in-out",
+          zIndex: 999,
+        }}
+      >
+        {[...navLinksLeft, ...navLinksRight].map((link) => (
+          <a
+            key={link.name}
+            href={link.path}
+            style={linkStyle}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#ff2e63")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#fff")}
+            onClick={() => setMenuOpen(false)}
+          >
+            {link.name}
+          </a>
+        ))}
+      </div>
+
+      {/* Overlay */}
+      {menuOpen && (
         <div
+          onClick={() => setMenuOpen(false)}
           style={{
-            position: "absolute",
-            top: "70px",
+            position: "fixed",
+            top: 0,
             left: 0,
-            right: 0,
-            background: "#111",
-            padding: "20px 0",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "15px",
-            zIndex: 999,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 998,
           }}
-        >
-          {[...navLinksLeft, ...navLinksRight].map((link) => (
-            <a
-              key={link.name}
-              href={link.path}
-              style={linkStyle}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#ff2e63")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#fff")}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
-        </div>
+        />
       )}
     </header>
   );
