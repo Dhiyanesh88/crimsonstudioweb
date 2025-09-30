@@ -112,8 +112,12 @@ export default function Projects() {
           gridTemplateColumns: windowWidth < 768 ? '1fr' : 'repeat(auto-fit, minmax(250px, 1fr))',
           gap: 'clamp(20px, 3vw, 30px)',
         }}
-      >
-        {filteredProjects.map((proj) => (
+      >{filteredProjects.length === 0 ? (
+        <p style={{ textAlign: 'center', color: '#aaa' }}>
+          🚀 Projects coming soon...
+        </p>
+      ) : (
+        filteredProjects.map((proj) => (
           <div
             key={proj.title}
             style={{
@@ -123,7 +127,7 @@ export default function Projects() {
               cursor: 'pointer',
               background: 'rgba(20,20,30,0.5)',
               backdropFilter: 'blur(6px)',
-              animation: 'float 6s ease-in-out infinite', // slow floating
+              animation: 'float 6s ease-in-out infinite',
               transition: 'transform 0.5s ease, box-shadow 0.5s ease',
             }}
             onMouseEnter={(e) => {
@@ -168,10 +172,23 @@ export default function Projects() {
               >
                 {proj.title} ({proj.year})
               </h3>
-              <p style={{ margin: '0 0 5px', fontSize: 'clamp(0.85rem, 2vw, 1rem)', color: '#ff2e63' }}>
+              <p
+                style={{
+                  margin: '0 0 5px',
+                  fontSize: 'clamp(0.85rem, 2vw, 1rem)',
+                  color: '#ff2e63',
+                }}
+              >
                 {proj.genre}
               </p>
-              <p style={{ margin: '0', fontSize: 'clamp(0.8rem, 1.8vw, 0.95rem)' }}>{proj.tagline}</p>
+              <p
+                style={{
+                  margin: '0',
+                  fontSize: 'clamp(0.8rem, 1.8vw, 0.95rem)',
+                }}
+              >
+                {proj.tagline}
+              </p>
               {proj.trailer && (
                 <a
                   href={proj.trailer}
@@ -186,15 +203,21 @@ export default function Projects() {
                     fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
                     transition: 'background 0.3s ease',
                   }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = '#e23c50')}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = '#ff2e63')}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = '#e23c50')
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = '#ff2e63')
+                  }
                 >
                   Play Trailer
                 </a>
               )}
             </div>
           </div>
-        ))}
+        ))
+      )}
+
       </div>
     </div>
   );

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
 const clips = [
-  { title: 'Celestial Odyssey Trailer', src: '/videos/celestial-trailer.mp4', thumbnail: '/images/celestial.jpg' },
-  { title: 'Neo Samurai Action Reel', src: '/videos/neo-samurai.mp4', thumbnail: '/images/neo-samurai.jpg' },
-  { title: 'Pixel Hearts Teaser', src: '/videos/pixel-hearts.mp4', thumbnail: '/images/pixel-hearts.jpg' },
+  { title: 'Celestial Odyssey Trailer', src: '/assets/trailer.mp4', thumbnail: '/assets/celestial.png' },
+  { title: 'Neo Samurai Action Reel', src: '/assets/trailer.mp4', thumbnail: '/assets/samurai.png' },
+  { title: 'Pixel Hearts Teaser', src: '/assets/trailer.mp4', thumbnail: '/assets/pixheart.png' },
 ];
 
 export default function ClipsPage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [selectedClip, setSelectedClip] = useState(null); // for dialog
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -62,18 +63,87 @@ export default function ClipsPage() {
         }}
       >
         {clips.map((clip, idx) => (
-          <ClipCard key={clip.title} clip={clip} videoHeight={videoHeight} isMobile={isMobile} idx={idx} />
+          <ClipCard
+            key={clip.title}
+            clip={clip}
+            videoHeight={videoHeight}
+            isMobile={isMobile}
+            idx={idx}
+            onClick={() => setSelectedClip(clip)}
+          />
         ))}
       </div>
+
+      {/* Trailer Dialog */}
+      {selectedClip && (
+        <div
+          onClick={() => setSelectedClip(null)}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            background: 'rgba(0,0,0,0.8)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 999,
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()} // prevent close when clicking inside
+            style={{
+              background: '#111',
+              padding: '15px',
+              borderRadius: '12px',
+              maxWidth: '90%',
+              width: isMobile ? '95%' : '70%',
+              boxShadow: '0 0 25px rgba(255,46,99,0.7)',
+              position: 'relative',
+            }}
+          >
+            <button
+              onClick={() => setSelectedClip(null)}
+              style={{
+                position: 'absolute',
+                top: '10px',
+                right: '10px',
+                background: 'transparent',
+                border: 'none',
+                fontSize: '1.8rem',
+                color: '#fff',
+                cursor: 'pointer',
+              }}
+            >
+              ✖
+            </button>
+            <h2 style={{ color: '#ff2e63', marginBottom: '10px' }}>{selectedClip.title}</h2>
+            <video
+              src={selectedClip.src}
+              poster={selectedClip.thumbnail}
+              controls
+              autoPlay
+              style={{
+                width: '100%',
+                maxHeight: '70vh',
+                borderRadius: '10px',
+                outline: 'none',
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function ClipCard({ clip, videoHeight, isMobile, idx }) {
+function ClipCard({ clip, videoHeight, isMobile, idx, onClick }) {
   const [hovered, setHovered] = useState(false);
 
   return (
     <div
+      onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -91,10 +161,9 @@ function ClipCard({ clip, videoHeight, isMobile, idx }) {
         animation: `float ${6 + idx}s ease-in-out infinite`,
       }}
     >
-      <video
-        src={clip.src}
-        poster={clip.thumbnail}
-        controls
+      <img
+        src={clip.thumbnail}
+        alt={clip.title}
         style={{
           width: '100%',
           height: videoHeight,

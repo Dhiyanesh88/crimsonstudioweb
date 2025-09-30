@@ -22,11 +22,10 @@ function App() {
       <main>
         <Homepage />
         <About />
-        <Projects />
+        {/* <Projects /> */}
         <Services />
         <News />
-        <ClipsPage />
-        {/* <Contact /> */}
+        {/* <ClipsPage /> */}
       </main>
       <Footer />
     </div>

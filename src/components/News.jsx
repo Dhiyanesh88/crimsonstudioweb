@@ -74,72 +74,96 @@ export default function News() {
           gap: 'clamp(20px, 3vw, 30px)',
         }}
       >
-        {newsList.map((news, idx) => (
-          <div
-            key={news.title}
-            style={{
-              background: 'rgba(20,20,30,0.5)',
-              backdropFilter: 'blur(6px)',
-              borderRadius: '15px',
-              overflow: 'hidden',
-              cursor: 'pointer',
-              transition: 'transform 0.5s ease, box-shadow 0.5s ease',
-              animation: `float ${6 + idx}s ease-in-out infinite`,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-10px)';
-              e.currentTarget.style.boxShadow =
-                '0 15px 35px rgba(255,46,99,0.4), 0 0 50px rgba(79,172,255,0.2)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0px)';
-              e.currentTarget.style.boxShadow = 'none';
-            }}
-          >
-            <img
-              src={news.img}
-              alt={news.title}
+        {newsList.length === 0 ? (
+          <p style={{ textAlign: 'center', color: '#aaa' }}>
+            📰 No news yet. Stay tuned!
+          </p>
+        ) : (
+          newsList.map((news, idx) => (
+            <div
+              key={news.title}
+              className="newsCard"
               style={{
-                width: '100%',
-                height: 'clamp(150px, 20vw, 180px)',
-                objectFit: 'cover',
-                filter: 'brightness(0.85)',
+                background: 'rgba(20,20,30,0.5)',
+                backdropFilter: 'blur(6px)',
+                borderRadius: '15px',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                transition: 'transform 0.5s ease, box-shadow 0.5s ease',
+                animation: `float ${6 + idx}s ease-in-out infinite`,
               }}
-            />
-            <div style={{ padding: 'clamp(15px, 2vw, 20px)' }}>
-              <h3
+            >
+              <img
+                src={news.img}
+                alt={news.title}
                 style={{
-                  margin: '0 0 10px',
-                  color: '#ff2e63',
-                  fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
-                  textShadow: '0 0 6px rgba(255,46,99,0.6)',
+                  width: '100%',
+                  height: 'clamp(150px, 20vw, 180px)',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.85)',
                 }}
-              >
-                {news.title}
-              </h3>
-              <p style={{ margin: '0 0 10px', fontSize: 'clamp(0.75rem, 2vw, 0.85rem)', color: '#aaa' }}>
-                {news.date}
-              </p>
-              <p style={{ margin: '0 0 15px', fontSize: 'clamp(0.85rem, 2vw, 1rem)' }}>{news.snippet}</p>
-              <a
-                href={news.link}
-                style={{
-                  textDecoration: 'none',
-                  color: '#fff',
-                  background: '#ff2e63',
-                  padding: 'clamp(5px, 1.5vw, 8px) clamp(10px, 3vw, 15px)',
-                  borderRadius: '5px',
-                  fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
-                  transition: 'background 0.3s ease',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = '#e23c50')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = '#ff2e63')}
-              >
-                Read More
-              </a>
+              />
+              <div style={{ padding: 'clamp(15px, 2vw, 20px)' }}>
+                <h3
+                  style={{
+                    margin: '0 0 10px',
+                    color: '#ff2e63',
+                    fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+                    textShadow: '0 0 6px rgba(255,46,99,0.6)',
+                  }}
+                >
+                  {news.title}
+                </h3>
+                <p
+                  style={{
+                    margin: '0 0 10px',
+                    fontSize: 'clamp(0.75rem, 2vw, 0.85rem)',
+                    color: '#aaa',
+                  }}
+                >
+                  {news.date}
+                </p>
+                <p
+                  style={{
+                    margin: '0 0 15px',
+                    fontSize: 'clamp(0.85rem, 2vw, 1rem)',
+                  }}
+                >
+                  {news.snippet}
+                </p>
+                <a
+                  href={news.link}
+                  className="newsLink"
+                  style={{
+                    textDecoration: 'none',
+                    color: '#fff',
+                    background: '#ff2e63',
+                    padding: 'clamp(5px, 1.5vw, 8px) clamp(10px, 3vw, 15px)',
+                    borderRadius: '5px',
+                    fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
+                    transition: 'background 0.3s ease',
+                  }}
+                >
+                  Read More
+                </a>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
+
+        {/* Inline CSS for hover effects */}
+        <style>
+          {`
+    .newsCard:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(255,46,99,0.4), 0 0 50px rgba(79,172,255,0.2);
+    }
+    .newsLink:hover {
+      background: #e23c50;
+    }
+  `}
+        </style>
+
       </div>
     </div>
   );
