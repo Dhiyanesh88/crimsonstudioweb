@@ -124,9 +124,8 @@ export default function AboutWithCosmic() {
         star.opacity = Math.max(0.3, Math.min(1, star.opacity));
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(${
-          star.color === "#e23c50" ? "226,60,80" : "79,172,255"
-        },${star.opacity})`;
+        ctx.fillStyle = `rgba(${star.color === "#e23c50" ? "226,60,80" : "79,172,255"
+          },${star.opacity})`;
         ctx.shadowColor = star.color;
         ctx.shadowBlur = 6;
         ctx.fill();
@@ -273,14 +272,35 @@ export default function AboutWithCosmic() {
               <li
                 key={value}
                 style={{
-                  marginBottom: "12px",
-                  fontSize: windowWidth > 768 ? "1.2rem" : "1rem",
+                  marginBottom: "14px",
+                  fontSize: windowWidth > 768 ? "1.25rem" : "1rem",
                   color: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  padding: "8px 12px",
+                  borderRadius: "8px",
+                  background: "rgba(255, 46, 99, 0.1)", // subtle pink highlight
+                  boxShadow: "0 4px 12px rgba(0,0,0,0.3)", // soft depth
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  cursor: "default",
+                  maxWidth: "400px",
+                  margin: "10px auto",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-3px)";
+                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(255,46,99,0.3)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
                 }}
               >
-                ✅ {value}
+                <span style={{ fontSize: "1.2em", color: "#ff2e63" }}>✅</span>
+                <span>{value}</span>
               </li>
             ))}
+
           </ul>
         </section>
       </div>

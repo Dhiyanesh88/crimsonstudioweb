@@ -1,10 +1,26 @@
 import React, { useState, useEffect } from 'react';
 
 const clips = [
-  { title: 'Celestial Odyssey Trailer', src: '/assets/trailer.mp4', thumbnail: '/assets/celestial.png' },
-  { title: 'Neo Samurai Action Reel', src: '/assets/trailer.mp4', thumbnail: '/assets/samurai.png' },
-  { title: 'Pixel Hearts Teaser', src: '/assets/trailer.mp4', thumbnail: '/assets/pixheart.png' },
+  // {
+  //   title: 'Celestial Voyage Trailer',
+  //   src: 'https://www.youtube.com/embed/aPUVUrS2oC0',
+  //   type: 'youtube',
+  //   thumbnail: '/assets/celestial.png'  // optional
+  // },
+  // {
+  //   title: 'Neo Samurai Action Reel',
+  //   src: '/videos/samurai_reel.mp4', // local video file
+  //   type: 'local',
+  //   thumbnail: '/assets/samurai.png'
+  // },
+  // {
+  //   title: 'Pixel Hearts Teaser',
+  //   src: 'https://www.youtube.com/embed/3JZ_D3ELwOQ',
+  //   type: 'youtube',
+  //   thumbnail: '/assets/pixheart.png'
+  // },
 ];
+
 
 export default function ClipsPage() {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -119,18 +135,34 @@ export default function ClipsPage() {
               ✖
             </button>
             <h2 style={{ color: '#ff2e63', marginBottom: '10px' }}>{selectedClip.title}</h2>
-            <video
-              src={selectedClip.src}
-              poster={selectedClip.thumbnail}
-              controls
-              autoPlay
-              style={{
-                width: '100%',
-                maxHeight: '70vh',
-                borderRadius: '10px',
-                outline: 'none',
-              }}
-            />
+            {selectedClip.type === 'youtube' ? (
+              <iframe
+                src={`${selectedClip.src}?autoplay=1&rel=0`}
+                title={selectedClip.title}
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{
+                  width: '100%',
+                  height: '70vh',
+                  borderRadius: '10px',
+                }}
+              />
+            ) : (
+              <video
+                src={selectedClip.src}
+                poster={selectedClip.thumbnail}
+                controls
+                autoPlay
+                style={{
+                  width: '100%',
+                  maxHeight: '70vh',
+                  borderRadius: '10px',
+                  outline: 'none',
+                }}
+              />
+            )}
+
           </div>
         </div>
       )}

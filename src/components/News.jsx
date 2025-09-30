@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from 'react';
 
 const newsList = [
-  {
-    title: 'Celestial Odyssey Trailer Released',
-    date: 'Sep 15, 2025',
-    snippet: 'Watch the first trailer of our upcoming anime “Celestial Odyssey” and get a glimpse of the adventure across the stars.',
-    img: '/assets/celestial.png',
-    link: '#',
-  },
-  {
-    title: 'Neo Samurai Wins Award',
-    date: 'Aug 30, 2025',
-    snippet: 'Our OVA “Neo Samurai” received the Best Action Animation award at the Global Anime Awards 2025.',
-    img: '/assets/samurai.png',
-    link: '#',
-  },
-  {
-    title: 'Pixel Hearts Collaboration',
-    date: 'Jul 20, 2025',
-    snippet: 'Exciting collaboration with Pixel Hearts creators for a special web anime short series. Fans will love it!',
-    img: '/assets/pixheart.png',
-    link: '#',
-  },
+  // {
+  //   title: 'Celestial Odyssey Trailer Released',
+  //   date: 'Sep 15, 2025',
+  //   snippet: 'Watch the first trailer of our upcoming anime “Celestial Odyssey” and get a glimpse of the adventure across the stars.',
+  //   img: '/assets/celestial.png',
+  //   link: '#',
+  // },
+  // {
+  //   title: 'Neo Samurai Wins Award',
+  //   date: 'Aug 30, 2025',
+  //   snippet: 'Our OVA “Neo Samurai” received the Best Action Animation award at the Global Anime Awards 2025.',
+  //   img: '/assets/samurai.png',
+  //   link: '#',
+  // },
+  // {
+  //   title: 'Pixel Hearts Collaboration',
+  //   date: 'Jul 20, 2025',
+  //   snippet: 'Exciting collaboration with Pixel Hearts creators for a special web anime short series. Fans will love it!',
+  //   img: '/assets/pixheart.png',
+  //   link: '#',
+  // },
 ];
 
 export default function News() {
@@ -39,7 +39,7 @@ export default function News() {
         background: 'transparent',
         color: '#fff',
         fontFamily: 'Arial, sans-serif',
-        minHeight: '50vh',
+        minHeight: '40vh',
         padding: 'clamp(40px, 5vw, 60px) 20px',
         position: 'relative',
         zIndex: 1,
@@ -75,9 +75,20 @@ export default function News() {
         }}
       >
         {newsList.length === 0 ? (
-          <p style={{ textAlign: 'center', color: '#aaa' }}>
+          <p
+            style={{
+              textAlign: 'center',
+              color: '#ff2e63',        // vibrant pink
+              fontSize: windowWidth > 768 ? '2rem' : '2rem',
+              fontWeight: '500',
+              textShadow: '0 0 8px rgba(255,46,99,0.6), 0 0 20px rgba(79,172,255,0.3)',
+              marginTop: '40px',
+              animation: 'glowPulse 2.5s infinite alternate',
+            }}
+          >
             📰 No news yet. Stay tuned!
           </p>
+          
         ) : (
           newsList.map((news, idx) => (
             <div

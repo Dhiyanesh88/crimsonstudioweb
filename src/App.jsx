@@ -5,6 +5,7 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Services from "./components/Services";
 import Launch from "./components/launch";
+import News from "./components/News";
 import Contact from "./components/Contact";
 import ClipsPage from "./components/ClipsPage";
 import Footer from "./components/footer";
@@ -18,13 +19,14 @@ function App() {
       <StarBackground />
 
       {/* Main site content */}
-      <Header />
+      {/* <Header /> */}
       <main>
         <Homepage />
         <About />
         {/* <Projects /> */}
         <Services />
-        <Launch />
+        <News />
+        {/* <Launch /> */}
         {/* <ClipsPage /> */}
       </main>
       <Footer />
