@@ -1,29 +1,41 @@
 import React, { useEffect, useState } from "react";
 
 function Homepage() {
-  // Logo animation
+  const [active, setActive] = useState("projects");
+
+  // Hero logo animation
   useEffect(() => {
     const logo = document.getElementById("hero-logo");
     if (logo) {
       logo.style.opacity = 0;
-      logo.style.transition = "opacity 2s ease, text-shadow 2s ease";
+      logo.style.transform = "translateY(-20px)";
+      logo.style.transition =
+        "opacity 1.5s ease, transform 1.5s ease, text-shadow 2s ease";
       setTimeout(() => {
         logo.style.opacity = 1;
-        logo.style.textShadow = "0 0 20px #e23c50";
-      }, 100);
+        logo.style.transform = "translateY(0)";
+        logo.style.textShadow = "0 0 25px #e23c50";
+      }, 200);
     }
   }, []);
 
+  // Reusable switch-style link
+  const linkStyle = (isActive, bg) => ({
+    background: isActive ? bg : "rgba(255,255,255,0.08)",
+    color: isActive ? "#fff" : "#aaa",
+    padding: "12px 24px",
+    margin: "0 10px",
+    textDecoration: "none",
+    borderRadius: "8px",
+    display: "inline-block",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    border: isActive ? "2px solid transparent" : "2px solid rgba(255,255,255,0.15)",
+    boxShadow: isActive ? "0 0 15px rgba(226,60,80,0.7)" : "none",
+  });
+
   return (
-    <div
-      style={{
-        color: "#fff",
-        margin: 0,
-        fontFamily: "sans-serif",
-        background: "#1c1c1c06",
-        minHeight: "100vh",
-      }}
-    >
+    <div style={{ color: "#fff", fontFamily: "system-ui, sans-serif" }}>
       {/* Hero Section */}
       <div
         style={{
@@ -34,133 +46,155 @@ function Homepage() {
         <div
           id="hero-logo"
           style={{
-            fontSize: "3rem",
+            fontSize: "3.2rem",
             fontWeight: "bold",
             color: "#e23c50",
-            marginBottom: "10px",
+            marginBottom: "15px",
+            letterSpacing: "1px",
           }}
         >
           Crimson Celest Studios
         </div>
-        <div style={{ fontSize: "1.2rem", marginBottom: "20px" }}>
+        <div style={{ fontSize: "1.3rem", marginBottom: "30px", color: "#ccc" }}>
           Transforming Manga & Games into Captivating Anime
         </div>
         <div>
-          <a
-            href="#projects"
-            style={{
-              background: "#e23c50",
-              color: "#fff",
-              padding: "10px 20px",
-              margin: "0 10px",
-              textDecoration: "none",
-              borderRadius: "6px",
-              display: "inline-block",
-            }}
+          <span
+            onClick={() => setActive("projects")}
+            style={linkStyle(active === "projects", "#e23c50")}
           >
             Discover Projects
-          </a>
-          <a
-            href="#contact"
-            style={{
-              background: "#444",
-              color: "#fff",
-              padding: "10px 20px",
-              margin: "0 10px",
-              textDecoration: "none",
-              borderRadius: "6px",
-              display: "inline-block",
-            }}
+          </span>
+          <span
+            onClick={() => setActive("contact")}
+            style={linkStyle(active === "contact", "#444")}
           >
             Collaborate With Us
-          </a>
+          </span>
         </div>
       </div>
 
-      {/* Placeholder Projects Section */}
+      {/* Switchable Section */}
       <div
-        id="projects"
         style={{
-          padding: "40px 20px",
+          padding: "60px 20px",
           textAlign: "center",
+          minHeight: "300px",
+          transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
-        <h2>Our First Adventures Await</h2>
-        <p style={{ color: "#ccc", margin: "20px 0" }}>
-          We are currently crafting our first anime adaptations! Stay tuned as we
-          bring indie manga and games to life, one frame at a time.
-        </p>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            flexWrap: "wrap",
-          }}
-        >
-          {[1, 2].map((i) => (
+        {active === "projects" && (
+          <div style={{ animation: "fadeIn 0.6s" }}>
+            <h2 style={{ fontSize: "2rem", marginBottom: "10px" }}>
+              Our First Adventures Await
+            </h2>
+            <p style={{ color: "#bbb", margin: "20px auto", maxWidth: "600px" }}>
+              We are currently crafting our first anime adaptations! Stay tuned as we
+              bring indie manga and games to life, one frame at a time.
+            </p>
             <div
-              key={i}
               style={{
-                background: "rgba(255,255,255,0.05)",
-                padding: "40px 20px",
-                borderRadius: "12px",
-                minWidth: "200px",
-                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                gap: "20px",
+                flexWrap: "wrap",
+                marginTop: "30px",
               }}
             >
-              <h3>Coming Soon</h3>
-              <p>
-                {i === 1
-                  ? "Epic stories from indie creators"
-                  : "Original concepts in development"}
-              </p>
+              {[1, 2].map((i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    padding: "40px 25px",
+                    borderRadius: "12px",
+                    minWidth: "220px",
+                    textAlign: "center",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "translateY(-8px)";
+                    e.currentTarget.style.boxShadow =
+                      "0 0 20px rgba(255,255,255,0.2)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "translateY(0)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  <h3 style={{ marginBottom: "10px" }}>Coming Soon</h3>
+                  <p style={{ color: "#aaa" }}>
+                    {i === 1
+                      ? "Epic stories from indie creators"
+                      : "Original concepts in development"}
+                  </p>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        )}
 
-      {/* Studio Highlights / Stats */}
-      <div
-        style={{
-          padding: "40px 20px",
-          textAlign: "center",
-        }}
-      >
-        <h2>Our Journey Begins</h2>
-        <p style={{ color: "#ccc", margin: "20px 0" }}>
-          CrimsonCelest Studios is just getting started! We're focused on building
-          strong collaborations with indie creators and bringing their stories to a
-          global audience.
-        </p>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            flexWrap: "wrap",
-          }}
-        >
-          {[
-            { label: "Projects Completed", value: 0 },
-            { label: "Creators Collaborated", value: 0 },
-            { label: "Years of Experience", value: 0 },
-          ].map((stat, idx) => (
+        {active === "contact" && (
+          <div style={{ animation: "fadeIn 0.6s" }}>
+            <h2 style={{ fontSize: "2rem", marginBottom: "10px" }}>
+              Our Journey Begins
+            </h2>
+            <p style={{ color: "#bbb", margin: "20px auto", maxWidth: "600px" }}>
+              CrimsonCelest Studios is just getting started! We're focused on
+              building strong collaborations with indie creators and bringing their
+              stories to a global audience.
+            </p>
             <div
-              key={idx}
               style={{
-                background: "rgba(255,255,255,0.05)",
-                padding: "20px",
-                borderRadius: "12px",
-                minWidth: "120px",
-                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                gap: "20px",
+                flexWrap: "wrap",
+                marginTop: "30px",
               }}
             >
-              <span style={{ fontSize: "2rem" }}>{stat.value}</span>
-              <div style={{ fontSize: "0.9rem" }}>{stat.label}</div>
+              {[
+                { label: "Projects Completed", value: 0 },
+                { label: "Creators Collaborated", value: 0 },
+                { label: "Years of Experience", value: 0 },
+              ].map((stat, idx) => (
+                <div
+                  key={idx}
+                  style={{
+                    background: "rgba(255,255,255,0.05)",
+                    padding: "25px",
+                    borderRadius: "12px",
+                    minWidth: "140px",
+                    textAlign: "center",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = "scale(1.05)";
+                    e.currentTarget.style.boxShadow =
+                      "0 0 20px rgba(226,60,80,0.5)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = "scale(1)";
+                    e.currentTarget.style.boxShadow = "none";
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "2.2rem",
+                      display: "block",
+                      marginBottom: "6px",
+                    }}
+                  >
+                    {stat.value}
+                  </span>
+                  <div style={{ fontSize: "0.95rem", color: "#ddd" }}>
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -184,7 +184,7 @@ export default function AboutWithCosmic() {
 
       <div
         style={{
-          padding: windowWidth > 768 ? "80px 60px" : "50px 20px",
+          padding: windowWidth > 768 ? "60px 60px" : "40px 20px",
           maxWidth: "1400px",
           margin: "0 auto",
           color: "#fff",
