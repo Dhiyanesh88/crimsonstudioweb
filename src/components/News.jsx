@@ -78,7 +78,7 @@ export default function News() {
           <p
             style={{
               textAlign: 'center',
-              color: '#ff2e63',        // vibrant pink
+              color: '#e23c50',        // vibrant pink
               fontSize: windowWidth > 768 ? '2rem' : '2rem',
               fontWeight: '500',
               textShadow: '0 0 8px rgba(255,46,99,0.6), 0 0 20px rgba(79,172,255,0.3)',

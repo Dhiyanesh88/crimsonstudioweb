@@ -1,157 +1,39 @@
 // src/components/AboutWithCosmic.jsx
 import React, { useRef, useEffect, useState } from "react";
-
+import Agreement from "./Agreement.jsx";
+import Policy from "./policy.jsx";
 const teamMembers = [
   { name: "Dhiyanesh R", role: "CreLead & Founder", bio: "Creative direction, storytelling, art, design" },
   { name: "Akash", role: "OpsLead & Founder", bio: "Operations, production, finance, management" },
 ];
 
-const values = ["Creativity", "Respect for Source Material", "Diversity in Genres"];
+const policies = [
+  "All content created respects copyright and intellectual property laws.",
+  "The studio maintains transparency in collaborations and partnerships.",
+  "User data and privacy are respected according to legal regulations.",
+  "Creative contributions from team members are credited appropriately.",
+];
 
 export default function AboutWithCosmic() {
+
   const canvasRef = useRef(null);
   const [hovered, setHovered] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [Agreementopen, setAgreementopen] = useState(false);
+  const [policyOpen, setPolicyOpen] = useState(false);
 
-  // Responsive handling
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Cosmic animated background
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    let animationFrameId;
-    let stars = [];
-    let nebulaParticles = [];
-    let rays = [];
-
-    const resizeCanvas = () => {
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      ctx.scale(dpr, dpr);
-
-      // Stars
-      stars = Array.from({ length: 150 }, () => ({
-        x: Math.random() * canvas.width / dpr,
-        y: Math.random() * canvas.height / dpr,
-        r: Math.random() * 1.5 + 0.5,
-        dx: (Math.random() - 0.5) * 0.2,
-        dy: (Math.random() - 0.5) * 0.2,
-        opacity: Math.random(),
-        color: Math.random() > 0.5 ? "#e23c50" : "#4facff",
-      }));
-
-      // Nebula glows
-      nebulaParticles = Array.from({ length: 40 }, () => ({
-        x: Math.random() * canvas.width / dpr,
-        y: Math.random() * canvas.height / dpr,
-        r: Math.random() * 200 + 100,
-        color: Math.random() > 0.5 ? "255,36,60" : "79,172,255",
-        dx: (Math.random() - 0.5) * 0.05,
-        dy: (Math.random() - 0.5) * 0.05,
-      }));
-
-      // Crimson rays
-      rays = Array.from({ length: 12 }, () => ({
-        x: Math.random() * canvas.width / dpr,
-        y: Math.random() * canvas.height / dpr,
-        length: Math.random() * 600 + 400,
-        angle: Math.random() * Math.PI * 2,
-        width: Math.random() * 2 + 1,
-        dx: (Math.random() - 0.5) * 0.1,
-        dy: (Math.random() - 0.5) * 0.1,
-      }));
-    };
-
-    const animate = () => {
-      // Fading cosmic background
-      ctx.fillStyle = "rgba(10, 10, 20, 0.25)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Nebula glows
-      nebulaParticles.forEach((neb) => {
-        neb.x += neb.dx;
-        neb.y += neb.dy;
-        ctx.beginPath();
-        const gradient = ctx.createRadialGradient(
-          neb.x,
-          neb.y,
-          0,
-          neb.x,
-          neb.y,
-          neb.r
-        );
-        gradient.addColorStop(0, `rgba(${neb.color},0.15)`);
-        gradient.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = gradient;
-        ctx.arc(neb.x, neb.y, neb.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // Crimson cosmic rays
-      rays.forEach((ray) => {
-        ray.x += ray.dx;
-        ray.y += ray.dy;
-
-        ctx.save();
-        ctx.translate(ray.x, ray.y);
-        ctx.rotate(ray.angle);
-        const gradient = ctx.createLinearGradient(0, 0, ray.length, 0);
-        gradient.addColorStop(0, "rgba(226,36,60,0.2)");
-        gradient.addColorStop(1, "rgba(226,36,60,0)");
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = ray.width;
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(ray.length, 0);
-        ctx.stroke();
-        ctx.restore();
-
-        if (ray.x < -ray.length) ray.x = canvas.width;
-        if (ray.x > canvas.width + ray.length) ray.x = 0;
-        if (ray.y < -ray.length) ray.y = canvas.height;
-        if (ray.y > canvas.height + ray.length) ray.y = 0;
-      });
-
-      // Stars
-      stars.forEach((star) => {
-        star.opacity += (Math.random() - 0.5) * 0.02;
-        star.opacity = Math.max(0.3, Math.min(1, star.opacity));
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.r, 0, 2 * Math.PI);
-        ctx.fillStyle = `rgba(${star.color === "#e23c50" ? "226,60,80" : "79,172,255"
-          },${star.opacity})`;
-        ctx.shadowColor = star.color;
-        ctx.shadowBlur = 6;
-        ctx.fill();
-
-        star.x += star.dx;
-        star.y += star.dy;
-        if (star.x < 0 || star.x > canvas.width) star.dx *= -1;
-        if (star.y < 0 || star.y > canvas.height) star.dy *= -1;
-      });
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", resizeCanvas);
-    };
-  }, []);
+  
 
   const headingStyle = {
     textAlign: "center",
-    color: "#e23c50",
+    color: "#ff2e63",
     fontSize: windowWidth > 768 ? "2.2rem" : "1.6rem",
     marginBottom: "20px",
   };
@@ -164,8 +46,6 @@ export default function AboutWithCosmic() {
     margin: "10px auto",
     color: "#fff",
   };
-
-  const imgSize = windowWidth > 768 ? "110px" : "90px";
 
   return (
     <div style={{ position: "relative", overflow: "hidden" }}>
@@ -257,52 +137,110 @@ export default function AboutWithCosmic() {
           </div>
         </section>
 
-        {/* Studio Values */}
-        <section>
-          <h2 style={headingStyle}>Studio Values & Culture</h2>
-          <ul
+        {/* Terms & Policy Section */}
+        <section style={{ marginTop: "60px", textAlign: "center" }}>
+          <h2 style={headingStyle}>Terms & Agreement</h2>
+
+          <div
             style={{
-              listStyle: "none",
-              padding: 0,
-              marginTop: "25px",
-              textAlign: "center",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "30px",
+              marginTop: "40px",
             }}
           >
-            {values.map((value) => (
-              <li
-                key={value}
+            {/* Terms Box */}
+            <div
+              style={{
+                background: "rgba(255, 255, 255, 0.05)",
+                padding: "30px 25px",
+                borderRadius: "16px",
+                minWidth: "250px",
+                maxWidth: "300px",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+                textAlign: "center",
+              }}
+            >
+              <h3 style={{ color: "#e23c50", marginBottom: "15px" }}>Terms</h3>
+              <p style={{ color: "#fff", marginBottom: "20px" }}>
+                Read the terms of collaboration, usage, and agreements for our studio.
+              </p>
+              <button
+                onClick={() => setAgreementopen(true)}
+                
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{
-                  marginBottom: "14px",
-                  fontSize: windowWidth > 768 ? "1.25rem" : "1rem",
+                  padding: "10px 20px",
+                  background: "linear-gradient(90deg, #e23c50)",
                   color: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                  padding: "8px 12px",
-                  borderRadius: "8px",
-                  background: "rgba(255, 46, 99, 0.1)", // subtle pink highlight
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.3)", // soft depth
+                  borderRadius: "12px",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  display: "inline-block",
                   transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                  cursor: "default",
-                  maxWidth: "400px",
-                  margin: "10px auto",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-3px)";
-                  e.currentTarget.style.boxShadow = "0 8px 20px rgba(255,46,99,0.3)";
+                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(255,46,99,0.4)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+                  e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
                 }}
               >
-                <span style={{ fontSize: "1.2em", color: "#ff2e63" }}>✅</span>
-                <span>{value}</span>
-              </li>
-            ))}
+                Check Terms
+              </button>
+              <Agreement Agreementopen={setAgreementopen} onClose={() => setAgreementopen(false)} />
+            </div>
 
-          </ul>
+            {/* Policy Box */}
+            <div
+              style={{
+                background: "rgba(255, 255, 255, 0.05)",
+                padding: "30px 25px",
+                borderRadius: "16px",
+                minWidth: "250px",
+                maxWidth: "300px",
+                boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+                textAlign: "center",
+              }}
+            >
+              <h3 style={{ color: "#e23c50", marginBottom: "15px" }}>Policy</h3>
+              <p style={{ color: "#fff", marginBottom: "20px" }}>
+                Access our studio’s policy details including privacy and collaboration guidelines.
+              </p>
+              <button
+                onClick={() => setPolicyOpen(true)}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  padding: "10px 20px",
+                  background: "linear-gradient(90deg, #e23c50)",
+                  color: "#fff",
+                  borderRadius: "12px",
+                  fontWeight: "bold",
+                  textDecoration: "none",
+                  display: "inline-block",
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = "translateY(-3px)";
+                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(255,46,99,0.4)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = "translateY(0)";
+                  e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
+                }}
+              >
+                Check Policy
+              </button>
+              <Policy Agreementopen={policyOpen} onClose={() => setPolicyOpen(false)} />
+            </div>
+          </div>
         </section>
+
       </div>
     </div>
   );

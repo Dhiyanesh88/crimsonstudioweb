@@ -40,13 +40,13 @@ function Homepage() {
       <div
         style={{
           textAlign: "center",
-          padding: "80px 20px",
+          padding: "60px 20px",
         }}
       >
         <div
           id="hero-logo"
           style={{
-            fontSize: "3.2rem",
+            fontSize: "4rem",
             fontWeight: "bold",
             color: "#e23c50",
             marginBottom: "15px",
@@ -55,7 +55,7 @@ function Homepage() {
         >
           Crimson Celest Studios
         </div>
-        <div style={{ fontSize: "1.3rem", marginBottom: "30px", color: "#ccc" }}>
+        <div style={{ fontSize: "1.5rem", marginBottom: "30px", color: "#ffffffff" }}>
           Transforming Manga & Games into Captivating Anime
         </div>
         <div>
@@ -67,7 +67,7 @@ function Homepage() {
           </span>
           <span
             onClick={() => setActive("contact")}
-            style={linkStyle(active === "contact", "#444")}
+            style={linkStyle(active === "contact", "#e23c50")}
           >
             Collaborate With Us
           </span>
@@ -77,7 +77,7 @@ function Homepage() {
       {/* Switchable Section */}
       <div
         style={{
-          padding: "60px 20px",
+          padding: "20px 20px",
           textAlign: "center",
           minHeight: "300px",
           transition: "opacity 0.6s ease, transform 0.6s ease",
@@ -85,10 +85,10 @@ function Homepage() {
       >
         {active === "projects" && (
           <div style={{ animation: "fadeIn 0.6s" }}>
-            <h2 style={{ fontSize: "2rem", marginBottom: "10px" }}>
+            <h2 style={{ fontSize: "2.0rem", marginBottom: "10px", color:"#ff2e63" }}>
               Our First Adventures Await
             </h2>
-            <p style={{ color: "#bbb", margin: "20px auto", maxWidth: "600px" }}>
+            <p style={{ fontSize: "1.1rem", margin: "20px auto", maxWidth: "600px",color:"white" }}>
               We are currently crafting our first anime adaptations! Stay tuned as we
               bring indie manga and games to life, one frame at a time.
             </p>
@@ -136,15 +136,15 @@ function Homepage() {
 
         {active === "contact" && (
           <div style={{ animation: "fadeIn 0.6s" }}>
-            <h2 style={{ fontSize: "2rem", marginBottom: "10px" }}>
+            <h2 style={{ fontSize: "2rem", marginBottom: "10px",color:"#e23c50" }}>
               Our Journey Begins
             </h2>
-            <p style={{ color: "#bbb", margin: "20px auto", maxWidth: "600px" }}>
+            <p style={{ fontSize: "1.1rem", margin: "20px auto", maxWidth: "600px",color:"white" }}>
               CrimsonCelest Studios is just getting started! We're focused on
               building strong collaborations with indie creators and bringing their
               stories to a global audience.
             </p>
-            <div
+            {/* <div
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -192,7 +192,7 @@ function Homepage() {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
         )}
       </div>

@@ -34,7 +34,7 @@ export default function ContactAndTeam() {
 
   const socialIcons = [
     { icon: <FaTwitter />, color: '#1DA1F2', link: '#' },
-    { icon: <FaInstagram />, color: '#E1306C', link: '#' },
+    { icon: <FaInstagram />, color: '#E1306C', link: 'https://www.instagram.com/crimsonceleststudio/' },
     { icon: <FaYoutube />, color: '#FF0000', link: '#' },
     { icon: <FaDiscord />, color: '#7289DA', link: '#' },
   ];
