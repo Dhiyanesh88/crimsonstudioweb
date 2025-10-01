@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+body {
+  font-family: 'Exo 2', sans-serif;
+  background: #111; /* optional: match your theme */
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6, button, a {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/* Optional: Inputs and textareas */
+input, textarea {
+  font-family: 'Exo 2', sans-serif;
+}
