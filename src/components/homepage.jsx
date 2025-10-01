@@ -19,6 +19,33 @@ function Homepage() {
     }
   }, []);
 
+  // Dynamic nav links
+  const navLinks = [
+    { id: "projects", label: "Discover Projects" },
+    { id: "contact", label: "Collaborate With Us" },
+  ];
+
+  // Section data
+  const sections = {
+    projects: {
+      title: "Our First Adventures Await",
+      desc: "We are currently crafting our first anime adaptations! Stay tuned as we bring indie manga and games to life, one frame at a time.",
+      cards: [
+        { title: "Coming Soon", desc: "Epic stories from indie creators" },
+        { title: "Coming Soon", desc: "Original concepts in development" },
+      ],
+    },
+    contact: {
+      title: "Our Journey Begins",
+      desc: "CrimsonCelest Studios is just getting started! We're focused on building strong collaborations with indie creators and bringing their stories to a global audience.",
+      stats: [
+        { label: "Projects Completed", value: 0 },
+        { label: "Creators Collaborated", value: 0 },
+        { label: "Years of Experience", value: 0 },
+      ],
+    },
+  };
+
   // Reusable switch-style link
   const linkStyle = (isActive, bg) => ({
     background: isActive ? bg : "rgba(255,255,255,0.08)",
@@ -37,12 +64,7 @@ function Homepage() {
   return (
     <div style={{ color: "#fff", fontFamily: "system-ui, sans-serif" }}>
       {/* Hero Section */}
-      <div
-        style={{
-          textAlign: "center",
-          padding: "60px 20px",
-        }}
-      >
+      <div style={{ textAlign: "center", padding: "60px 20px" }}>
         <div
           id="hero-logo"
           style={{
@@ -59,22 +81,19 @@ function Homepage() {
           Transforming Manga & Games into Captivating Anime
         </div>
         <div>
-          <span
-            onClick={() => setActive("projects")}
-            style={linkStyle(active === "projects", "#e23c50")}
-          >
-            Discover Projects
-          </span>
-          <span
-            onClick={() => setActive("contact")}
-            style={linkStyle(active === "contact", "#e23c50")}
-          >
-            Collaborate With Us
-          </span>
+          {navLinks.map((link) => (
+            <span
+              key={link.id}
+              onClick={() => setActive(link.id)}
+              style={linkStyle(active === link.id, "#e23c50")}
+            >
+              {link.label}
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* Switchable Section */}
+      {/* Dynamic Switchable Section */}
       <div
         style={{
           padding: "20px 20px",
@@ -83,15 +102,23 @@ function Homepage() {
           transition: "opacity 0.6s ease, transform 0.6s ease",
         }}
       >
-        {active === "projects" && (
-          <div style={{ animation: "fadeIn 0.6s" }}>
-            <h2 style={{ fontSize: "2.0rem", marginBottom: "10px", color:"#ff2e63" }}>
-              Our First Adventures Await
-            </h2>
-            <p style={{ fontSize: "1.1rem", margin: "20px auto", maxWidth: "600px",color:"white" }}>
-              We are currently crafting our first anime adaptations! Stay tuned as we
-              bring indie manga and games to life, one frame at a time.
-            </p>
+        <div style={{ animation: "fadeIn 0.6s" }}>
+          <h2 style={{ fontSize: "2rem", marginBottom: "10px", color: "#e23c50" }}>
+            {sections[active].title}
+          </h2>
+          <p
+            style={{
+              fontSize: "1.1rem",
+              margin: "20px auto",
+              maxWidth: "600px",
+              color: "white",
+            }}
+          >
+            {sections[active].desc}
+          </p>
+
+          {/* Show cards for projects */}
+          {active === "projects" && (
             <div
               style={{
                 display: "flex",
@@ -101,7 +128,7 @@ function Homepage() {
                 marginTop: "30px",
               }}
             >
-              {[1, 2].map((i) => (
+              {sections.projects.cards.map((card, i) => (
                 <div
                   key={i}
                   style={{
@@ -122,29 +149,16 @@ function Homepage() {
                     e.currentTarget.style.boxShadow = "none";
                   }}
                 >
-                  <h3 style={{ marginBottom: "10px" }}>Coming Soon</h3>
-                  <p style={{ color: "#aaa" }}>
-                    {i === 1
-                      ? "Epic stories from indie creators"
-                      : "Original concepts in development"}
-                  </p>
+                  <h3 style={{ marginBottom: "10px" }}>{card.title}</h3>
+                  <p style={{ color: "#aaa" }}>{card.desc}</p>
                 </div>
               ))}
             </div>
-          </div>
-        )}
+          )}
 
-        {active === "contact" && (
-          <div style={{ animation: "fadeIn 0.6s" }}>
-            <h2 style={{ fontSize: "2rem", marginBottom: "10px",color:"#e23c50" }}>
-              Our Journey Begins
-            </h2>
-            <p style={{ fontSize: "1.1rem", margin: "20px auto", maxWidth: "600px",color:"white" }}>
-              CrimsonCelest Studios is just getting started! We're focused on
-              building strong collaborations with indie creators and bringing their
-              stories to a global audience.
-            </p>
-            {/* <div
+          {/* Show stats for contact */}
+          {/* {active === "contact" && (
+            <div
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -153,11 +167,7 @@ function Homepage() {
                 marginTop: "30px",
               }}
             >
-              {[
-                { label: "Projects Completed", value: 0 },
-                { label: "Creators Collaborated", value: 0 },
-                { label: "Years of Experience", value: 0 },
-              ].map((stat, idx) => (
+              {sections.contact.stats.map((stat, idx) => (
                 <div
                   key={idx}
                   style={{
@@ -192,9 +202,9 @@ function Homepage() {
                   </div>
                 </div>
               ))}
-            </div> */}
-          </div>
-        )}
+            </div>
+          )} */}
+        </div>
       </div>
     </div>
   );

@@ -1,21 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { FaTwitter, FaInstagram, FaYoutube, FaDiscord } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import { BsTelegram } from "react-icons/bs";
+import { FaTwitter, FaInstagram, FaYoutube, FaDiscord } from "react-icons/fa";
 
-const team = [
-  { name: 'Dhiyanesh R', role: 'CreLead & Founder', bio: 'Creative direction, storytelling, art, design' },
-  { name: 'Akash', role: 'OpsLead & Founder', bio: 'Operations, production, finance, management' },
+// Contact Info
+const contactInfo = {
+  email: "crimsonceleststudio@gmail.com",
+  Telegram: "https://t.me/CrimsonCelestStudio",
+};
+
+// Social links
+const socialLinks = [
+  { icon: <BsTelegram />, color: "#0088cc", link: "https://t.me/CrimsonCelestStudio" },
+  { icon: <FaInstagram />, color: "#E1306C", link: "https://www.instagram.com/crimsonceleststudio/" },
+  { icon: <FaYoutube />, color: "#FF0000", link: "https://www.youtube.com/@crimsonceleststudio" },
+  // { icon: <FaDiscord />, color: "#7289DA", link: "#" },
 ];
 
 export default function ContactAndTeam() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [hoveredButton, setHoveredButton] = useState(false);
   const [socialHover, setSocialHover] = useState(null);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const isMobile = windowWidth <= 768;
@@ -27,26 +36,19 @@ export default function ContactAndTeam() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you! Your message has been sent.');
-    setFormData({ name: '', email: '', message: '' });
+    console.log("Form submitted:", formData);
+    alert("Thank you! Your message has been sent.");
+    setFormData({ name: "", email: "", message: "" });
   };
-
-  const socialIcons = [
-    { icon: <FaTwitter />, color: '#1DA1F2', link: '#' },
-    { icon: <FaInstagram />, color: '#E1306C', link: 'https://www.instagram.com/crimsonceleststudio/' },
-    { icon: <FaYoutube />, color: '#FF0000', link: '#' },
-    { icon: <FaDiscord />, color: '#7289DA', link: '#' },
-  ];
 
   return (
     <div
       style={{
-        background: 'transparent',
-        color: '#fff',
-        fontFamily: 'Arial, sans-serif',
-        minHeight: '50vh',
-        padding: isMobile ? '30px 15px' : '60px 40px',
+        background: "transparent",
+        color: "#fff",
+        fontFamily: "Arial, sans-serif",
+        minHeight: "50vh",
+        padding: isMobile ? "30px 15px" : "60px 40px",
         zIndex: 1,
       }}
     >
@@ -60,46 +62,30 @@ export default function ContactAndTeam() {
         `}
       </style>
 
-      <h1 style={{ textAlign: 'center', marginBottom: '40px', color: '#ff2e63', fontSize: isMobile ? '2rem' : '2.5rem', textShadow: '0 0 10px rgba(255,46,99,0.7)' }}>
+      <h1
+        style={{
+          textAlign: "center",
+          marginBottom: "40px",
+          color: "#ff2e63",
+          fontSize: isMobile ? "2rem" : "2.5rem",
+          textShadow: "0 0 10px rgba(255,46,99,0.7)",
+        }}
+      >
         Contact & Team
       </h1>
 
-      <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '30px', justifyContent: 'center', flexWrap: 'wrap' }}>
-
+      <div
+        style={{
+          display: "flex",
+          flexDirection: isMobile ? "column" : "row",
+          gap: "30px",
+          justifyContent: "center",
+          flexWrap: "wrap",
+        }}
+      >
         {/* Contact Form */}
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(e);
-
-            const button = e.currentTarget.querySelector("button");
-            button.innerText = "Sent to the Multiverse!";
-
-            // Create rocket
-            const rocket = document.createElement("div");
-            rocket.style.position = "fixed";
-            rocket.style.bottom = "30px";
-            rocket.style.left = "50%";
-            rocket.style.transform = "translateX(-50%)";
-            rocket.style.width = "12px";
-            rocket.style.height = "24px";
-            rocket.style.background = "linear-gradient(45deg, #ff6600, #ffcc00)";
-            rocket.style.borderRadius = "6px";
-            rocket.style.boxShadow = "0 0 8px #ff6600, 0 0 16px #ffcc00";
-            rocket.style.zIndex = 10000;
-            rocket.style.transition = "transform 2s ease-in, opacity 2s ease-in";
-            document.body.appendChild(rocket);
-
-            setTimeout(() => {
-              rocket.style.transform = "translateX(-50%) translateY(-120vh) rotate(10deg)";
-              rocket.style.opacity = 0;
-            }, 50);
-
-            setTimeout(() => {
-              document.body.removeChild(rocket);
-              button.innerText = "Send Message";
-            }, 2100);
-          }}
+          onSubmit={handleSubmit}
           style={{
             flex: "1 1 400px",
             background: "rgba(20,20,30,0.5)",
@@ -109,11 +95,8 @@ export default function ContactAndTeam() {
             animation: "float 6s ease-in-out infinite",
           }}
         >
-          <h2 style={{ color: "#ff2e63", marginBottom: "20px", textAlign: "center" }}>
-            Get in Touch
-          </h2>
+          <h2 style={{ color: "#ff2e63", marginBottom: "20px", textAlign: "center" }}>Get in Touch</h2>
 
-          {/* Lively input fields */}
           {["name", "email"].map((field) => (
             <input
               key={field}
@@ -152,7 +135,7 @@ export default function ContactAndTeam() {
               display: "block",
               borderRadius: "12px",
               border: "2px solid #d6070799",
-                background: "#28020285",
+              background: "#28020285",
               color: "#fff",
               resize: "none",
               transition: "transform 0.2s ease, box-shadow 0.2s ease",
@@ -191,21 +174,26 @@ export default function ContactAndTeam() {
         {/* Contact Info & Socials */}
         <div
           style={{
-            flex: '1 1 300px',
-            background: 'rgba(20,20,30,0.5)',
-            backdropFilter: 'blur(6px)',
-            borderRadius: '15px',
-            padding: '25px',
-            animation: 'float 7s ease-in-out infinite',
+            flex: "1 1 300px",
+            background: "rgba(20,20,30,0.5)",
+            backdropFilter: "blur(6px)",
+            borderRadius: "15px",
+            padding: "25px",
+            animation: "float 7s ease-in-out infinite",
           }}
         >
-          <h2 style={{ color: '#ff2e63', marginBottom: '20px', textAlign: 'center' }}>Company Info</h2>
-          <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Email: contact@crimsoncelest.com</p>
-          <p style={{ marginBottom: '10px', fontSize: 'clamp(0.9rem, 2vw, 1rem)' }}>Phone: +91-123-456-7890</p>
+          <h2 style={{ color: "#ff2e63", marginBottom: "20px", textAlign: "center" }}>Company Info</h2>
 
-          <h3 style={{ color: '#ff2e63', margin: '20px 0 10px', textAlign: 'center' }}>Follow Us</h3>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '15px' }}>
-            {socialIcons.map((social, idx) => (
+          {/* Dynamic contact info */}
+          {Object.entries(contactInfo).map(([key, value], idx) => (
+            <p key={idx} style={{ marginBottom: "10px", fontSize: "clamp(0.9rem, 2vw, 1rem)" }}>
+              {`${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`}
+            </p>
+          ))}
+
+          <h3 style={{ color: "#ff2e63", margin: "20px 0 10px", textAlign: "center" }}>Follow Us</h3>
+          <div style={{ display: "flex", justifyContent: "center", gap: "15px" }}>
+            {socialLinks.map((social, idx) => (
               <a
                 key={idx}
                 href={social.link}
@@ -214,16 +202,17 @@ export default function ContactAndTeam() {
                 onMouseEnter={() => setSocialHover(idx)}
                 onMouseLeave={() => setSocialHover(null)}
                 style={{
-                  color: socialHover === idx && !isMobile ? '#fff' : social.color,
-                  fontSize: '1.5rem',
-                  transition: 'color 0.3s ease, transform 0.2s ease',
-                  transform: socialHover === idx && !isMobile ? 'scale(1.2)' : 'scale(1)',
+                  color: socialHover === idx && !isMobile ? "#fff" : social.color,
+                  fontSize: "1.5rem",
+                  transition: "color 0.3s ease, transform 0.2s ease",
+                  transform: socialHover === idx && !isMobile ? "scale(1.2)" : "scale(1)",
                 }}
               >
                 {social.icon}
               </a>
             ))}
           </div>
+
         </div>
       </div>
     </div>

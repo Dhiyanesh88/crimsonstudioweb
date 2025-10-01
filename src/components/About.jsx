@@ -1,35 +1,36 @@
-// src/components/AboutWithCosmic.jsx
 import React, { useRef, useEffect, useState } from "react";
-import Agreement from "./Agreement.jsx";
-import Policy from "./policy.jsx";
+
 const teamMembers = [
-  { name: "Dhiyanesh R", role: "CreLead & Founder", bio: "Creative direction, storytelling, art, design" },
+  { name: "Dhiyaneshwaran", role: "CreLead & Founder", bio: "Creative direction, storytelling, art, design" },
   { name: "Akash", role: "OpsLead & Founder", bio: "Operations, production, finance, management" },
 ];
 
-const policies = [
-  "All content created respects copyright and intellectual property laws.",
-  "The studio maintains transparency in collaborations and partnerships.",
-  "User data and privacy are respected according to legal regulations.",
-  "Creative contributions from team members are credited appropriately.",
+// Dynamic Terms & Policy
+const infoBoxes = [
+  {
+    title: "Terms",
+    description: "Read the terms of collaboration, usage, and agreements for our studio.",
+    linkLabel: "Check Terms",
+    linkHref: "./assets/Agreement.pdf",
+  },
+  {
+    title: "Policy",
+    description: "Access our studio’s policy details including privacy and collaboration guidelines.",
+    linkLabel: "Check Policy",
+    linkHref: "./assets/Policy.pdf",
+  },
 ];
 
 export default function AboutWithCosmic() {
-
   const canvasRef = useRef(null);
   const [hovered, setHovered] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [Agreementopen, setAgreementopen] = useState(false);
-  const [policyOpen, setPolicyOpen] = useState(false);
-
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  
 
   const headingStyle = {
     textAlign: "center",
@@ -140,7 +141,6 @@ export default function AboutWithCosmic() {
         {/* Terms & Policy Section */}
         <section style={{ marginTop: "60px", textAlign: "center" }}>
           <h2 style={headingStyle}>Terms & Agreement</h2>
-
           <div
             style={{
               display: "flex",
@@ -150,96 +150,42 @@ export default function AboutWithCosmic() {
               marginTop: "40px",
             }}
           >
-            {/* Terms Box */}
-            <div
-              style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                padding: "30px 25px",
-                borderRadius: "16px",
-                minWidth: "250px",
-                maxWidth: "300px",
-                boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-                textAlign: "center",
-              }}
-            >
-              <h3 style={{ color: "#e23c50", marginBottom: "15px" }}>Terms</h3>
-              <p style={{ color: "#fff", marginBottom: "20px" }}>
-                Read the terms of collaboration, usage, and agreements for our studio.
-              </p>
-              <a
-                href="./assets/Agreement.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+            {infoBoxes.map((box, idx) => (
+              <div
+                key={idx}
                 style={{
-                  padding: "10px 20px",
-                  background: "linear-gradient(90deg, #e23c50)",
-                  color: "#fff",
-                  borderRadius: "12px",
-                  fontWeight: "bold",
-                  textDecoration: "none",
-                  display: "inline-block",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-3px)";
-                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(255,46,99,0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
+                  background: "rgba(255, 255, 255, 0.05)",
+                  padding: "30px 25px",
+                  borderRadius: "16px",
+                  minWidth: "250px",
+                  maxWidth: "300px",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+                  textAlign: "center",
                 }}
               >
-                Check Terms
-              </a>
-              <Agreement Agreementopen={setAgreementopen} onClose={() => setAgreementopen(false)} />
-            </div>
-
-            {/* Policy Box */}
-            <div
-              style={{
-                background: "rgba(255, 255, 255, 0.05)",
-                padding: "30px 25px",
-                borderRadius: "16px",
-                minWidth: "250px",
-                maxWidth: "300px",
-                boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
-                textAlign: "center",
-              }}
-            >
-              <h3 style={{ color: "#e23c50", marginBottom: "15px" }}>Policy</h3>
-              <p style={{ color: "#fff", marginBottom: "20px" }}>
-                Access our studio’s policy details including privacy and collaboration guidelines.
-              </p>
-              <a
-                href="./assets/Policy.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  padding: "10px 20px",
-                  background: "linear-gradient(90deg, #e23c50)",
-                  color: "#fff",
-                  borderRadius: "12px",
-                  fontWeight: "bold",
-                  textDecoration: "none",
-                  display: "inline-block",
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-3px)";
-                  e.currentTarget.style.boxShadow = "0 6px 20px rgba(255,46,99,0.4)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "0 4px 15px rgba(0,0,0,0.3)";
-                }}
-              >
-                Check Policy
-              </a>
-              <Policy Agreementopen={policyOpen} onClose={() => setPolicyOpen(false)} />
-            </div>
+                <h3 style={{ color: "#e23c50", marginBottom: "15px" }}>{box.title}</h3>
+                <p style={{ color: "#fff", marginBottom: "20px" }}>{box.description}</p>
+                <a
+                  href={box.linkHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    padding: "10px 20px",
+                    background: "linear-gradient(90deg, #e23c50)",
+                    color: "#fff",
+                    borderRadius: "12px",
+                    fontWeight: "bold",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  }}
+                >
+                  {box.linkLabel}
+                </a>
+              </div>
+            ))}
           </div>
         </section>
-
       </div>
     </div>
   );
