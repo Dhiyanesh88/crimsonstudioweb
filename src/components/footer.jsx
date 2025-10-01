@@ -71,7 +71,7 @@ export default function ContactAndTeam() {
           textShadow: "0 0 10px rgba(255,46,99,0.7)",
         }}
       >
-        Contact & Team
+        Contact 
       </h1>
 
       <div
