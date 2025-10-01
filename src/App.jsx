@@ -4,6 +4,7 @@ import Homepage from "./components/homepage";
 import About from "./components/About";
 import Projects from "./components/Projects";
 import Services from "./components/Services";
+import Launch from "./components/launch";
 import News from "./components/News";
 import Contact from "./components/Contact";
 import ClipsPage from "./components/ClipsPage";
@@ -18,15 +19,15 @@ function App() {
       <StarBackground />
 
       {/* Main site content */}
-      <Header />
+      {/* <Header /> */}
       <main>
         <Homepage />
         <About />
-        <Projects />
+        {/* <Projects /> */}
         <Services />
         <News />
-        <ClipsPage />
-        <Contact />
+        {/* <Launch /> */}
+        {/* <ClipsPage /> */}
       </main>
       <Footer />
     </div>

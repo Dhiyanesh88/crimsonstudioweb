@@ -1,152 +1,192 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 
 const teamMembers = [
-   { name: 'Dhiyanesh R', role: 'CreLead & Founder',  bio: 'Creative direction, storytelling, art, design' },
-  { name: 'Akash', role: 'OpsLead & Founder', bio: 'Operations, production, finance, management' },
+  { name: "Dhiyaneshwaran", role: "CreLead & Founder", bio: "Creative direction, storytelling, art, design" },
+  { name: "Akash", role: "OpsLead & Founder", bio: "Operations, production, finance, management" },
 ];
 
-const values = ["Creativity", "Respect for Source Material", "Diversity in Genres"];
+// Dynamic Terms & Policy
+const infoBoxes = [
+  {
+    title: "Terms",
+    description: "Read the terms of collaboration, usage, and agreements for our studio.",
+    linkLabel: "Check Terms",
+    linkHref: "./assets/Agreement.pdf",
+  },
+  {
+    title: "Policy",
+    description: "Access our studio’s policy details including privacy and collaboration guidelines.",
+    linkLabel: "Check Policy",
+    linkHref: "./assets/Policy.pdf",
+  },
+];
 
-export default function About() {
+export default function AboutWithCosmic() {
+  const canvasRef = useRef(null);
   const [hovered, setHovered] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  // Handle window resize for responsiveness
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Dynamic styles based on window width
   const headingStyle = {
     textAlign: "center",
-    color: "#e23c50",
-    fontSize: windowWidth > 768 ? "2rem" : "1.5rem",
+    color: "#ff2e63",
+    fontSize: windowWidth > 768 ? "2.2rem" : "1.6rem",
+    marginBottom: "20px",
   };
 
   const paragraphStyle = {
     fontSize: windowWidth > 768 ? "1.1rem" : "1rem",
     lineHeight: 1.7,
     textAlign: "center",
-    maxWidth: "800px",
+    maxWidth: "900px",
     margin: "10px auto",
     color: "#fff",
   };
 
-  const imgSize = windowWidth > 768 ? "100px" : "80px";
-
   return (
-    <div
-      style={{
-        padding: windowWidth > 768 ? "60px 40px" : "40px 20px",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        color: "#fff",
-        background: "#111",
-      }}
-    >
-      {/* Studio Overview */}
-      <section style={{ marginBottom: "50px" }}>
-        <h2 style={headingStyle}>Studio Overview</h2>
-        <p style={paragraphStyle}>
-          <strong>Mission:</strong> “Our goal is to adapt stories into captivating anime for all audiences.”
-        </p>
-        <p style={paragraphStyle}>
-          We envision a studio where imagination meets tradition, blending innovative animation techniques
-          with heartfelt storytelling. Our passion is to bring diverse tales to life, making anime
-          accessible and engaging for everyone.
-        </p>
-      </section>
+    <div style={{ position: "relative", overflow: "hidden" }}>
+      <canvas
+        ref={canvasRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: -1,
+        }}
+      />
 
-      {/* Team */}
-      <section style={{ marginBottom: "50px" }}>
-        <h2 style={headingStyle}>Our Team</h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-            gap: "30px",
-            marginTop: "30px",
-          }}
-        >
-          {teamMembers.map((member, idx) => (
-            <div
-              key={member.name}
-              onMouseEnter={() => setHovered(idx)}
-              onMouseLeave={() => setHovered(null)}
-              style={{
-                background: "#1a1a1a",
-                borderRadius: "12px",
-                padding: "20px",
-                textAlign: "center",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                boxShadow:
-                  hovered === idx
-                    ? "0 0 20px rgba(226,60,80,0.6)"
-                    : "0 0 10px rgba(0,0,0,0.5)",
-                transform: hovered === idx ? "translateY(-8px)" : "none",
-              }}
-            >
-              {/* <img
-                src={member.photo}
-                alt={member.name}
+      <div
+        style={{
+          padding: windowWidth > 768 ? "60px 60px" : "40px 20px",
+          maxWidth: "1400px",
+          margin: "0 auto",
+          color: "#fff",
+          position: "relative",
+          zIndex: 1,
+        }}
+      >
+        {/* Studio Overview */}
+        <section style={{ marginBottom: "60px" }}>
+          <h2 style={headingStyle}>Studio Overview</h2>
+          <p style={paragraphStyle}>
+            <strong>Mission:</strong> “Our goal is to adapt stories into captivating anime for all audiences.”
+          </p>
+          <p style={paragraphStyle}>
+            We envision a studio where imagination meets tradition, blending innovative animation techniques
+            with heartfelt storytelling. Our passion is to bring diverse tales to life, making anime
+            accessible and engaging for everyone.
+          </p>
+        </section>
+
+        {/* Team */}
+        <section style={{ marginBottom: "60px" }}>
+          <h2 style={headingStyle}>Our Team</h2>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: "40px",
+              marginTop: "40px",
+            }}
+          >
+            {teamMembers.map((member, idx) => (
+              <div
+                key={member.name}
+                onMouseEnter={() => setHovered(idx)}
+                onMouseLeave={() => setHovered(null)}
                 style={{
-                  width: imgSize,
-                  height: imgSize,
-                  borderRadius: "50%",
-                  objectFit: "cover",
-                  marginBottom: "15px",
-                }}
-              /> */}
-              <h3 style={{ margin: "10px 0", color: "#fff", fontSize: windowWidth > 768 ? "1.2rem" : "1rem" }}>
-                {member.name}
-              </h3>
-              <p style={{ margin: "5px 0", color: "#aaa", fontSize: windowWidth > 768 ? "1rem" : "0.9rem" }}>
-                {member.role}
-              </p>
-              <p
-                style={{
-                  marginTop: "10px",
-                  color: "#e23c50",
-                  opacity: hovered === idx ? 1 : 0,
-                  height: hovered === idx ? "auto" : 0,
-                  transition: "opacity 0.3s ease",
-                  fontSize: windowWidth > 768 ? "0.95rem" : "0.85rem",
+                  background: "rgba(255,255,255,0.05)",
+                  borderRadius: "16px",
+                  padding: "30px 20px",
+                  textAlign: "center",
+                  transition: "transform 0.4s ease, box-shadow 0.4s ease",
+                  boxShadow:
+                    hovered === idx
+                      ? "0 0 50px 15px rgba(239, 18, 44, 0.5), 0 0 70px 25px rgba(79,172,255,0.3)"
+                      : "0 0 15px rgba(0,0,0,0.5)",
+                  transform: hovered === idx ? "translateY(-10px)" : "none",
+                  backdropFilter: "blur(6px)",
                 }}
               >
-                {member.bio}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
+                <h3 style={{ margin: "10px 0", color: "#fff", fontSize: windowWidth > 768 ? "1.3rem" : "1.1rem" }}>
+                  {member.name}
+                </h3>
+                <p style={{ margin: "5px 0", color: "#aaa", fontSize: windowWidth > 768 ? "1rem" : "0.9rem" }}>
+                  {member.role}
+                </p>
+                <p
+                  style={{
+                    marginTop: "12px",
+                    color: "#dcd9d9ff",
+                    opacity: hovered === idx ? 1 : 0,
+                    height: hovered === idx ? "auto" : 0,
+                    transition: "opacity 0.4s ease",
+                    fontSize: windowWidth > 768 ? "1rem" : "1rem",
+                  }}
+                >
+                  {member.bio}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      {/* Studio Values / Culture */}
-      <section>
-        <h2 style={headingStyle}>Studio Values & Culture</h2>
-        <ul
-          style={{
-            listStyle: "none",
-            padding: 0,
-            marginTop: "20px",
-            textAlign: "center",
-          }}
-        >
-          {values.map((value) => (
-            <li
-              key={value}
-              style={{
-                marginBottom: "10px",
-                fontSize: windowWidth > 768 ? "1.1rem" : "1rem",
-                color: "#fff",
-              }}
-            >
-              ✅ {value}
-            </li>
-          ))}
-        </ul>
-      </section>
+        {/* Terms & Policy Section */}
+        <section style={{ marginTop: "60px", textAlign: "center" }}>
+          <h2 style={headingStyle}>Terms & Agreement</h2>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "30px",
+              marginTop: "40px",
+            }}
+          >
+            {infoBoxes.map((box, idx) => (
+              <div
+                key={idx}
+                style={{
+                  background: "rgba(255, 255, 255, 0.05)",
+                  padding: "30px 25px",
+                  borderRadius: "16px",
+                  minWidth: "250px",
+                  maxWidth: "300px",
+                  boxShadow: "0 4px 15px rgba(0,0,0,0.3)",
+                  textAlign: "center",
+                }}
+              >
+                <h3 style={{ color: "#e23c50", marginBottom: "15px" }}>{box.title}</h3>
+                <p style={{ color: "#fff", marginBottom: "20px" }}>{box.description}</p>
+                <a
+                  href={box.linkHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    padding: "10px 20px",
+                    background: "linear-gradient(90deg, #e23c50)",
+                    color: "#fff",
+                    borderRadius: "12px",
+                    fontWeight: "bold",
+                    textDecoration: "none",
+                    display: "inline-block",
+                    transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                  }}
+                >
+                  {box.linkLabel}
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
