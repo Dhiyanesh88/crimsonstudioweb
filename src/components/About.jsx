@@ -166,9 +166,8 @@ export default function AboutWithCosmic() {
               <p style={{ color: "#fff", marginBottom: "20px" }}>
                 Read the terms of collaboration, usage, and agreements for our studio.
               </p>
-              <button
-                onClick={() => setAgreementopen(true)}
-                
+              <a
+                href="./assets/Agreement.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -191,7 +190,7 @@ export default function AboutWithCosmic() {
                 }}
               >
                 Check Terms
-              </button>
+              </a>
               <Agreement Agreementopen={setAgreementopen} onClose={() => setAgreementopen(false)} />
             </div>
 
@@ -211,8 +210,8 @@ export default function AboutWithCosmic() {
               <p style={{ color: "#fff", marginBottom: "20px" }}>
                 Access our studio’s policy details including privacy and collaboration guidelines.
               </p>
-              <button
-                onClick={() => setPolicyOpen(true)}
+              <a
+                href="./assets/Policy.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -235,7 +234,7 @@ export default function AboutWithCosmic() {
                 }}
               >
                 Check Policy
-              </button>
+              </a>
               <Policy Agreementopen={policyOpen} onClose={() => setPolicyOpen(false)} />
             </div>
           </div>
