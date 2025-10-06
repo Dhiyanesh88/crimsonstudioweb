@@ -68,7 +68,7 @@ function Homepage() {
         <div
           id="hero-logo"
           style={{
-            fontSize: "4rem",
+            fontSize: "clamp(3rem,5vw,4rem)",
             fontWeight: "bold",
             color: "#e23c50",
             marginBottom: "15px",
@@ -77,7 +77,7 @@ function Homepage() {
         >
           Crimson Celest Studios
         </div>
-        <div style={{ fontSize: "1.5rem", marginBottom: "30px", color: "#ffffffff" }}>
+        <div style={{ fontSize: "clamp(1rem,5vw,1.5rem)", marginBottom: "30px", color: "#ffffffff" }}>
           Transforming Manga & Games into Captivating Anime
         </div>
         <div>
