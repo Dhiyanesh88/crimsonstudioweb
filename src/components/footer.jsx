@@ -20,6 +20,10 @@ export default function ContactAndTeam() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [socialHover, setSocialHover] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState(""); // message text
+  const [statusType, setStatusType] = useState(""); // "success" or "error"
+
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -34,12 +38,35 @@ export default function ContactAndTeam() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    alert("Thank you! Your message has been sent.");
-    setFormData({ name: "", email: "", message: "" });
+    setSubmitting(true); // show loading spinner or disable button
+
+    const formDataObj = new FormData(e.target);
+    try {
+      const response = await fetch("http://localhost/crimson_celest/api/email.php", {
+        method: "POST",
+        body: formDataObj,
+      });
+      const text = await response.text();
+      if (text.toLowerCase().includes("success")) {
+        setStatusMessage("Message sent successfully!");
+        setStatusType("success");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        const errorMsg = "Message could not be sent. Please provide proper Details!!";
+        setStatusMessage(errorMsg);
+        setStatusType("error");
+      }
+
+    } catch (err) {
+      setStatusMessage("Error sending message: " + err.message);
+      setStatusType("error");
+    } finally {
+      setSubmitting(false);
+    }
   };
+
 
   return (
     <div
@@ -71,7 +98,7 @@ export default function ContactAndTeam() {
           textShadow: "0 0 10px rgba(255,46,99,0.7)",
         }}
       >
-        Contact 
+        Contact
       </h1>
 
       <div
@@ -146,30 +173,55 @@ export default function ContactAndTeam() {
 
           <button
             type="submit"
+            disabled={submitting} // disable while sending
             style={{
               width: "90%",
               padding: "12px",
               margin: "15px auto",
               display: "block",
-              background: "#ff2e63",
+              background: submitting ? "#aaa" : "#ff2e63", // gray if sending
               border: "none",
               borderRadius: "12px",
               color: "#fff",
-              cursor: "pointer",
+              cursor: submitting ? "not-allowed" : "pointer",
               fontSize: "1rem",
               transition: "all 0.3s ease",
-              boxShadow: "0 0 8px #ff2e63, 0 0 16px #e23c50",
+              boxShadow: submitting
+                ? "0 0 4px #aaa, 0 0 8px #888"
+                : "0 0 8px #ff2e63, 0 0 16px #e23c50",
             }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.boxShadow = "0 0 16px #ff2e63, 0 0 24px #e23c50")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.boxShadow = "0 0 8px #ff2e63, 0 0 16px #e23c50")
-            }
+            onMouseEnter={(e) => {
+              if (!submitting) e.currentTarget.style.boxShadow = "0 0 16px #ff2e63, 0 0 24px #e23c50";
+            }}
+            onMouseLeave={(e) => {
+              if (!submitting) e.currentTarget.style.boxShadow = "0 0 8px #ff2e63, 0 0 16px #e23c50";
+            }}
           >
-            Send Message
+            {submitting ? "Sending..." : "Send Message"}
           </button>
         </form>
+        {statusMessage && (
+          <div
+            style={{
+              position: "fixed",
+              top: "20px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              zIndex: 9999,
+              padding: "12px 24px",
+              borderRadius: "8px",
+              textAlign: "center",
+              color: statusType === "success" ? "#28a745" : "#ff2e63",
+              backgroundColor: statusType === "success" ? "#d4edda" : "#f8d7da",
+              border: statusType === "success" ? "1px solid #c3e6cb" : "1px solid #f5c6cb",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
+              transition: "all 0.3s ease-in-out",
+            }}
+          >
+            {statusMessage}
+          </div>
+        )}
+
 
         {/* Contact Info & Socials */}
         <div

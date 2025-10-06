@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState } from "react";
 
-const teamMembers = [
-  { name: "Dhiyaneshwaran", role: "CreLead & Founder", bio: "Creative direction, storytelling, art, design" },
-  { name: "Akash", role: "OpsLead & Founder", bio: "Operations, production, finance, management" },
-];
+// const teamMembers = [
+//   { name: "Dhiyaneshwaran", role: "CreLead & Founder", bio: "Creative direction, storytelling, art, design" },
+//   { name: "Akash", role: "OpsLead & Founder", bio: "Operations, production, finance, management" },
+// ];
 
 // Dynamic Terms & Policy
 const infoBoxes = [
@@ -86,7 +86,7 @@ export default function AboutWithCosmic() {
         </section>
 
         {/* Team */}
-        <section style={{ marginBottom: "60px" }}>
+        {/* <section style={{ marginBottom: "60px" }}>
           <h2 style={headingStyle}>Our Team</h2>
           <div
             style={{
@@ -136,7 +136,7 @@ export default function AboutWithCosmic() {
               </div>
             ))}
           </div>
-        </section>
+        </section> */}
 
         {/* Terms & Policy Section */}
         <section style={{ marginTop: "60px", textAlign: "center" }}>
